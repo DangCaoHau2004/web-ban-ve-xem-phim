@@ -7,6 +7,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (isset($data['ds_cho'])) {
         $_SESSION['ds_cho'] = $data['ds_cho'];
         $seats = $_SESSION['selectedSeats'];
+        // nối các chỗ thành chuỗi ngăn cách nhau bởi dấu space
         $seats = implode(" ", $seats);
         $ds_cho = $_SESSION['ds_cho'];
         $id_lich_chieu = (int)$_SESSION['id_lich_chieu'];
@@ -20,12 +21,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $ds_cho_database = explode(" ", $lich_chieu["ds_cho"]);
         // lấy danh sách các chỗ đã chọn trong phiên
         $selectedSeats = $_SESSION['selectedSeats'];
-
+        // kiểm tra xem 1 trong các ghế đã đặt thì có ghế nào tồn tại trong db
         foreach ($selectedSeats as $seat) {
             if (in_array($seat, $ds_cho_database)) {
                 $kt_ton_tai = true;
             }
         }
+        // nếu không tồn tại trong db
         if (!$kt_ton_tai) {
             $sql = "INSERT INTO admin_xn(id_lich_chieu, id_phong, tinh_trang, cho_da_chon) 
         VALUES(" . $id_lich_chieu .  "," . $id_phong . ", 0, '" . $seats . "')";

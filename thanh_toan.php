@@ -29,6 +29,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         exit();
     }
 }
+
 if (!isset($_SESSION['selectedSeats']) || !isset($_SESSION['id_lich_chieu'])) {
     http_response_code(404);
 
@@ -90,6 +91,7 @@ if (!isset($_SESSION['selectedSeats']) || !isset($_SESSION['id_lich_chieu'])) {
     </head>
 
     <body>
+        <!-- nếu như tồn tại các ghế đã chọn và id lịch chiếu  -->
         <?php if (isset($_SESSION['selectedSeats']) && isset($_SESSION['id_lich_chieu'])) {
         ?>
             <?php
@@ -131,7 +133,7 @@ if (!isset($_SESSION['selectedSeats']) || !isset($_SESSION['id_lich_chieu'])) {
             <?php echo "<script>var ds_cho = '" . $ds_cho . "';</script>"; ?>
 
         <?php } else { ?>
-
+            <!-- Không tồn tại id lịch chiếu và chỗ ngồi  -->
         <?php
             unset($_SESSION['ds_cho']);
             unset($_SESSION['id_lich_chieu']);
@@ -142,7 +144,6 @@ if (!isset($_SESSION['selectedSeats']) || !isset($_SESSION['id_lich_chieu'])) {
 
         <script>
             document.getElementById("submit").addEventListener("click", () => {
-
                 fetch("dien_cho.php", {
                         method: "POST",
                         headers: {

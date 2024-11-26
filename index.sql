@@ -82,9 +82,9 @@ VALUES
 
 SET GLOBAL event_scheduler = ON;
 
-CREATE EVENT update_ngay_chieu
-ON SCHEDULE EVERY 1 DAY STARTS '2024-10-30 00:00:00'  
+
+CREATE EVENT xoa_ngay_chieu_cu
+ON SCHEDULE EVERY 1 DAY STARTS '2024-10-30 00:00:00'
 DO
-  UPDATE lich_chieu
-  SET ngay_chieu = CURRENT_TIMESTAMP
+  DELETE FROM lich_chieu
   WHERE DATE(ngay_chieu) < CURDATE();

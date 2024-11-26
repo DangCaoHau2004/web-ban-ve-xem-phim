@@ -131,6 +131,10 @@ if ($is_admin) {
             form {
                 margin: 100px;
             }
+
+            .hidden {
+                display: none;
+            }
         </style>
     </head>
 
