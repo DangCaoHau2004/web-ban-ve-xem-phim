@@ -1,6 +1,17 @@
 CREATE DATABASE btlweb;
 USE btlweb;
 
+CREATE TABLE users (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    ho_ten VARCHAR(100) NOT NULL,
+    email VARCHAR(75) NOT NULL,
+    mat_khau VARCHAR(50) NOT NULL,
+    ngay_sinh DATE NOT NULL,
+    gioi_tinh ENUM('Nam', 'Nữ', 'Khác') NOT NULL,
+    sdt VARCHAR(15) NOT NULL,
+    is_admin INT DEFAULT 0   
+)
+
 CREATE TABLE phim (
     id_phim INT PRIMARY KEY AUTO_INCREMENT,
     ten VARCHAR(255),
