@@ -3,7 +3,7 @@ include("database.php");
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (isset($_POST["rap_chieu"], $_POST["ngay_chieu"], $_POST["gio_chieu"], $_POST["id_phong"], $_POST["ds_cho"])) {
-
+//test
         if (isset($_POST["id_lich_chieu"])) {
             // Lấy dữ liệu từ POST
             $id_lich_chieu = $_POST["id_lich_chieu"];
