@@ -29,7 +29,15 @@
             $sql = "INSERT INTO users (ho_ten, email, mat_khau, ngay_sinh, gioi_tinh, sdt) 
             VALUES ('$ho_ten', '$email', '$mat_khau', '$ngay_sinh', '$gioi_tinh', '$sdt')";
             if ($conn->query($sql) === true) {
-                echo'<script>alert("Bạn đã đăng ký thành công!");</script>';
+                $_SESSION['ho_ten'] = $ho_ten;
+                $_SESSION['users'] = ['ho_ten' => $ho_ten, 
+                                    'email' => $email, 
+                                    'ngay_sinh' => $ngay_sinh, 
+                                    'gioi_tinh' => $gioi_tinh, 
+                                    'sdt' => $sdt ]; 
+                //Lưu thông tin người dùng
+                echo'<script>alert("Bạn đã đăng ký thành công!");
+                        window.location.href = "main_after.php";</script>';
             } else {
                 echo '<script>alert("Lỗi: ");</script>' . $conn->error;
             }
