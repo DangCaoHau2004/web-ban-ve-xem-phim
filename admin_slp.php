@@ -1,6 +1,6 @@
 <?php
 include("database.php");
-
+// abc
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (isset($_POST["rap_chieu"], $_POST["ngay_chieu"], $_POST["gio_chieu"], $_POST["id_phong"], $_POST["id_phim"])) {
         $id_phim = $_POST["id_phim"];
