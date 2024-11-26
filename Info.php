@@ -85,7 +85,7 @@
     <div class="frame_info">
         <!-- Ảnh logo -->
         <div class="item_info">
-            <a href=""><img src="./img/logo.png" alt="Beta Cinemas Logo" class="logo"></a>
+            <a href=""><img src="./img/logo.png/" alt="Beta Cinemas Logo" class="logo"></a>
         </div>
 
         <div class="item_info">
