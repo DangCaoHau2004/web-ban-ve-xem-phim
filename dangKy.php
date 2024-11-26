@@ -289,5 +289,9 @@
             </div>
         </form>
     </div>
+
+    <?php
+        include("info.php");
+    ?>
 </body>
 </html>

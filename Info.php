@@ -15,6 +15,7 @@
 
         /* Style cho khung của tab Thông tin */
         .frame_info {
+            margin: 50px;
             display: flex;
             justify-content: space-between;
             background-color: #f9f9f9;
