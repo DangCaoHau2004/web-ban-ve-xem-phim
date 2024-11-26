@@ -1,7 +1,7 @@
 <?php
 
 include("./database.php");
-
+//abc
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (isset($_POST["id_phim"], $_POST["ten"], $_POST["the_loai"], $_POST["thoi_luong"], $_POST["link_img"], $_POST["mo_ta"], $_POST["ngon_ngu"])) {
         $id_phim = $_POST["id_phim"];
