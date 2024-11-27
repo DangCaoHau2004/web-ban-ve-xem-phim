@@ -10,7 +10,7 @@ CREATE TABLE users (
     gioi_tinh ENUM('Nam', 'Nữ', 'Khác') NOT NULL,
     sdt VARCHAR(15) NOT NULL,
     is_admin INT DEFAULT 0   
-)
+);
 
 CREATE TABLE phim (
     id_phim INT PRIMARY KEY AUTO_INCREMENT,
