@@ -319,6 +319,7 @@ if (isset($id_lich_chieu)) {
                     }
                 });
             });
+            // có thể dùng php để post nhưng tôi muốn có alert sau khi xong nên tôi dùng js 
 
             document.querySelector(".submit").addEventListener("click", () => {
                 let id_lich_chieu = document.querySelector(".id_lich_chieu").value;
@@ -326,8 +327,10 @@ if (isset($id_lich_chieu)) {
                     fetch("thanh_toan.php", {
                             method: "POST",
                             headers: {
+                                // định dạng dữ liệu truyền đi là json và mã hóa utf-8
                                 "Content-Type": "application/json; charset=utf-8",
                             },
+                            // chuyển từ một chuỗi thành json
                             body: JSON.stringify({
                                 seats: selectedSeat,
                                 id_lich_chieu: id_lich_chieu
@@ -343,7 +346,7 @@ if (isset($id_lich_chieu)) {
                             location.replace("/BTLWEB/thanh_toan.php");
                         })
                         .catch((error) => {
-                            location.replace("/BTLWEB/ERR404.php")
+                            location.replace("/BTLWEB/ERR404.php");
                         });
                 } else {
                     alert("Bạn chưa chọn chỗ");
