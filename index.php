@@ -262,6 +262,9 @@
         </script>
     </div>
     <!-- footer -->
+    <?php
+    include("info.php");
+    ?>
 
 </body>
 

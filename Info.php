@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -74,18 +75,19 @@
             width: 225px;
         }
 
-        .contact h3{
+        .contact h3 {
             width: 80px;
         }
     </style>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
 </head>
+
 <body>
     <!-- Tab Thông tin -->
     <div class="frame_info">
         <!-- Ảnh logo -->
         <div class="item_info">
-            <a href=""><img src="./img/logo.png/" alt="Beta Cinemas Logo" class="logo"></a>
+            <a href=""><img src="./img/logo.png" alt="Beta Cinemas Logo" class="logo"></a>
         </div>
 
         <div class="item_info">
@@ -133,4 +135,5 @@
         </div>
     </div>
 </body>
+
 </html>
