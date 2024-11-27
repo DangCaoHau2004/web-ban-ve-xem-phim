@@ -1,0 +1,105 @@
+body {
+  margin: 0;
+  padding: 0;
+  background-color: #f9f9f9;
+  font-family: Arial;
+}
+input[type="date"]::-webkit-inner-spin-button,
+input[type="date"]::-webkit-calendar-picker-indicator {
+  display: none;
+  -webkit-appearance: none;
+}
+i {
+  color: gray;
+  font-size: 19px;
+}
+.fa-circle-user {
+  padding-top: 2px;
+}
+
+.info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 25px;
+}
+.info_text {
+  margin-right: 970px;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  height: 40px;
+  width: 210px;
+  color: white;
+  background-color: rgb(2, 84, 184);
+}
+.info_box {
+  display: flex;
+  background-color: white;
+  width: 80%;
+  height: 80vh;
+}
+.inside_box {
+  margin: 20px;
+}
+.left p {
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+.left i {
+  position: absolute;
+  margin: 7px;
+  margin-left: 8px;
+}
+.left input {
+  padding-left: 35px;
+}
+.input {
+  padding-left: 10px;
+  font-size: 18px;
+  height: 30px;
+  width: 70vh;
+}
+.right {
+  margin-left: 50px;
+}
+.right p {
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+.right i {
+  position: absolute;
+  margin: 9px;
+}
+.right input {
+  padding-left: 35px;
+}
+#gender {
+  padding-left: 30px;
+  font-size: 18px;
+  height: 31px;
+  width: 75vh;
+}
+.change_pass {
+  margin-top: 25px;
+}
+.change_pass a {
+  text-decoration: none;
+  color: blue;
+  font-size: 18px;
+}
+.submit {
+  display: flex;
+  justify-content: center;
+}
+.submit input {
+  font-size: 14px;
+  color: white;
+  background-color: #318ce7;
+  border: none;
+  border-radius: 5px;
+  width: 150px;
+  height: 40px;
+}
