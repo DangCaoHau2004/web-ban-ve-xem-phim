@@ -1,6 +1,8 @@
 <?php
 include("database.php");
+
 $id_lich_chieu = 9;
+
 if (isset($id_lich_chieu)) {
 
     $nameArr = 65;
