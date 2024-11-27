@@ -344,7 +344,7 @@ if (isset($id_lich_chieu)) {
                             location.replace("/BTLWEB/thanh_toan.php");
                         })
                         .catch((error) => {
-                            location.replace("/BTLWEB/ERR404.php")
+                            location.replace("/BTLWEB/ERR404.php");
                         });
                 } else {
                     alert("Bạn chưa chọn chỗ");
