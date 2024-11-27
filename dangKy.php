@@ -73,7 +73,7 @@
         .login_sign-up {
             display: block;
             justify-self: center;
-            padding-top: 50px;
+            padding-top: 45px;
         }
 
         .button_sign-up {
