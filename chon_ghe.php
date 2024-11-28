@@ -2,9 +2,7 @@
 include("database.php");
 if (isset($_GET["id_lich_chieu"])) {
 
-
     $id_lich_chieu = $_GET["id_lich_chieu"];
-
     $nameArr = 65;
     $sql = "SELECT id_phim, rap_chieu, ngay_chieu, gio_chieu, id_phong, ds_cho FROM lich_chieu Where id_lich_chieu = " . $id_lich_chieu;
     if ($conn->query($sql)) {

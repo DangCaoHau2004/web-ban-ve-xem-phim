@@ -2,56 +2,73 @@
 include("database.php");
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    if (isset($_POST['id_xn'], $_POST['id'], $_POST['id_lich_chieu'])) {
-        $id_xn_rm = (int)$_POST['id_xn'];
-        $id = (int)$_POST['id'];
-        $id_lich_chieu = $_POST['id_lich_chieu'];
-        // lấy id lịch chiếu và chỗ đã chọn
-        $sql = "SELECT id_lich_chieu, cho_da_chon FROM `admin_xn` WHERE id_xn = " . (int)$id_xn_rm;
-        $result = $conn->query($sql);
-        $result = $result->fetch_all(MYSQLI_ASSOC)[0];
-        $cho_da_chon = $result["cho_da_chon"];
-        $id_lich_chieu = $result["id_lich_chieu"];
-        // lấy ds chỗ
-        $sql = "SELECT ds_cho FROM lich_chieu Where id_lich_chieu = " . $id_lich_chieu;
-        $result = $conn->query($sql);
-        $result = $result->fetch_all(MYSQLI_ASSOC)[0];
-        $ds_cho = $result["ds_cho"];
-        $ds_cho_arr = explode(" ", $ds_cho);
-        print_r($ds_cho_arr);
-        $kt_ton_tai = false;
-        $cho_da_chon_arr = explode(" ", $cho_da_chon);
-        print_r($cho_da_chon_arr);
+    if ($_POST["btn"] == "xac_nhan") {
+        if (isset($_POST['id_xn'], $_POST['id'], $_POST['id_lich_chieu'])) {
+            $id_xn_rm = (int)$_POST['id_xn'];
+            $id = (int)$_POST['id'];
+            $id_lich_chieu = $_POST['id_lich_chieu'];
+            // lấy id lịch chiếu và chỗ đã chọn
+            $sql = "SELECT id_lich_chieu, cho_da_chon FROM `admin_xn` WHERE id_xn = " . (int)$id_xn_rm;
+            $result = $conn->query($sql);
+            $result = $result->fetch_all(MYSQLI_ASSOC)[0];
+            $cho_da_chon = $result["cho_da_chon"];
+            $id_lich_chieu = $result["id_lich_chieu"];
+            // lấy ds chỗ
+            $sql = "SELECT ds_cho FROM lich_chieu Where id_lich_chieu = " . $id_lich_chieu;
+            $result = $conn->query($sql);
+            $result = $result->fetch_all(MYSQLI_ASSOC)[0];
+            $ds_cho = $result["ds_cho"];
+            $ds_cho_arr = explode(" ", $ds_cho);
+            print_r($ds_cho_arr);
+            $kt_ton_tai = false;
+            $cho_da_chon_arr = explode(" ", $cho_da_chon);
+            print_r($cho_da_chon_arr);
 
-        foreach ($cho_da_chon_arr as $seat) {
-            if (in_array($seat, $ds_cho_arr)) {
-                $kt_ton_tai = true;
+            foreach ($cho_da_chon_arr as $seat) {
+                if (in_array($seat, $ds_cho_arr)) {
+                    $kt_ton_tai = true;
+                }
             }
-        }
-        if (!$kt_ton_tai) {
-            if (!empty($ds_cho)) {
-                $ds_cho .= " " . $cho_da_chon;
+            if (!$kt_ton_tai) {
+                if (!empty($ds_cho)) {
+                    $ds_cho .= " " . $cho_da_chon;
+                } else {
+                    $ds_cho .= $cho_da_chon;
+                }
+
+                // cập nhật danh sách chỗ trong lịch chiếu
+                $sql = "UPDATE lich_chieu SET ds_cho = '$ds_cho' WHERE id_lich_chieu = $id_lich_chieu";
+                $conn->query($sql);
+                // cập nhật lại danh sách xác nhận
+                $sql = "UPDATE admin_xn SET tinh_trang = 1 WHERE id_xn = " . (int)$id_xn_rm;
+                $conn->query($sql);
+
+                $sql = "UPDATE ve SET tinh_trang = 1 WHERE id_ve = " . (int)$id_xn_rm;
+                $conn->query($sql);
+                $_SESSION["thong_bao"] = "Thành Công";
+                header("Location: " . $_SERVER['PHP_SELF']);
+                exit();
             } else {
-                $ds_cho .= $cho_da_chon;
+                $sql = "UPDATE admin_xn SET tinh_trang = 2 WHERE id_xn = " . (int)$id_xn_rm;
+                $conn->query($sql);
+                $sql = "UPDATE ve SET tinh_trang = 2 WHERE id_ve = " . (int)$id_xn_rm;
+                $conn->query($sql);
+                $_SESSION["thong_bao"] = "Chỗ đã tồn tại";
+                header("Location: " . $_SERVER['PHP_SELF']);
+                exit();
             }
-
-            // cập nhật danh sách chỗ trong lịch chiếu
-            $sql = "UPDATE lich_chieu SET ds_cho = '$ds_cho' WHERE id_lich_chieu = $id_lich_chieu";
-            $conn->query($sql);
-            // cập nhật lại danh sách xác nhận
-            $sql = "UPDATE admin_xn SET tinh_trang = '1' WHERE id_xn = " . (int)$id_xn_rm;
-            $conn->query($sql);
-
-            $sql = "UPDATE ve SET tinh_trang = 1 WHERE id = " . $id . " AND id_lich_chieu = " . $id_lich_chieu . ";";
-            $conn->query($sql);
-        } else {
-            $sql = "UPDATE admin_xn SET tinh_trang = '2' WHERE id_xn = " . (int)$id_xn_rm;
-            $conn->query($sql);
         }
-    }
+    } else {
+        $id_xn_rm = (int)$_POST['id_xn'];
+        $sql = "UPDATE admin_xn SET tinh_trang = 2 WHERE id_xn = " . (int)$id_xn_rm;
+        $conn->query($sql);
 
-    //nếu ko có header ở đây thì khi reload lại trang nó vẫn là method post và tự động cập nhật lại các giá trị dựa trên dữ liệu cũ!
-    header("Location: " . $_SERVER['PHP_SELF']);
+        $sql = "UPDATE ve SET tinh_trang = 2 WHERE id_ve = " . (int)$id_xn_rm;
+        $conn->query($sql);
+        $_SESSION["thong_bao"] = "Đã hủy thành Công";
+        header("Location: " . $_SERVER['PHP_SELF']);
+        exit();
+    }
 }
 
 $gia_ve = 50000;
@@ -152,6 +169,13 @@ if ($is_admin) {
     </head>
 
     <body>
+        <?php if (isset($_SESSION["thong_bao"])) { ?>
+            <script>
+                alert('<?php echo $_SESSION["thong_bao"]; ?>');
+            </script>
+            <?php unset($_SESSION["thong_bao"]);
+            ?>
+        <?php } ?>
         <div>
             <button style="background-color: blueviolet; border: 0; padding: 5px;">
                 <a href="./admin_sp.php" style="text-decoration: none; color: white;">Sửa phim</a>
@@ -193,8 +217,8 @@ if ($is_admin) {
                         <td>Tổng: <?php echo $gia_ve * count(explode(" ", $cho_da_chon[$i])) ?></td>
                         <td><?php echo $ngay_dat[$i] ?></td>
                         <td><?php echo $id_user . " " . $cho_da_chon[$i] . " " . $id_lich_chieu[$i] ?></td>
-                        <td><button type="submit">Xác nhận</button></td>
-                        <td><button type="submit">Hủy</button></td>
+                        <td><button type="submit" value="xac_nhan" name="btn">Xác nhận</button></td>
+                        <td><button type="submit" value="huy" name="btn">Hủy</button></td>
                     </tr>
                 </form>
 
@@ -209,4 +233,5 @@ if ($is_admin) {
 <?php } else {
     $_SESSION["ERR"] = "Bạn không có quyền truy cập trang này!";
     header("Location: ERR404.php");
+    exit();
 } ?>
