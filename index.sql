@@ -9,6 +9,7 @@ CREATE TABLE users (
     ngay_sinh DATE NOT NULL,
     gioi_tinh ENUM('Nam', 'Nữ', 'Khác') NOT NULL,
     sdt VARCHAR(15) NOT NULL,
+    id_ve VARCHAR(10),
     is_admin INT DEFAULT 0   
 );
 
@@ -47,9 +48,28 @@ id_phong INT,
 tinh_trang INT, 
 cho_da_chon VARCHAR(255), 
 ngay_dat DATETIME DEFAULT CURRENT_TIMESTAMP,
+id INT NOT NULL,
 FOREIGN KEY (id_lich_chieu) REFERENCES lich_chieu(id_lich_chieu), 
-FOREIGN KEY (id_phong) REFERENCES phong(id_phong) 
+FOREIGN KEY (id_phong) REFERENCES phong(id_phong),
+FOREIGN KEY (id) REFERENCES users(id)
 );
+
+CREATE TABLE ve (
+    id_ve INT AUTO_INCREMENT PRIMARY KEY,
+    ma_ve VARCHAR(50) UNIQUE NOT NULL,
+    ngay_dat DATE NOT NULL DEFAULT CURRENT_DATE,
+    ngay_het_han DATE NOT NULL,
+    id_lich_chieu INT NOT NULL,
+    id INT NOT NULL,
+    tinh_trang INT NOT NULL,
+    FOREIGN KEY (id_lich_chieu) REFERENCES lich_chieu(id_lich_chieu), 
+    FOREIGN KEY (id) REFERENCES users(id) 
+);
+
+
+INSERT INTO users (ho_ten, email, mat_khau, ngay_sinh, gioi_tinh, sdt, id_ve, is_admin)
+VALUES 
+('Quản Trị Viên', 'admin@example.com', 123456, '1990-01-01', 'Nam', '0123456789', NULL, 1);
 
 INSERT INTO phim (ten, the_loai, thoi_luong, link_img, mo_ta, ngon_ngu) 
 VALUES

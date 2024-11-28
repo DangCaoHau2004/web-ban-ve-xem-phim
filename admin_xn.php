@@ -2,9 +2,10 @@
 include("database.php");
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    if (isset($_POST['id_xn'])) {
-        $id_xn_rm = $_POST['id_xn'];
-
+    if (isset($_POST['id_xn'], $_POST['id'], $_POST['id_lich_chieu'])) {
+        $id_xn_rm = (int)$_POST['id_xn'];
+        $id = (int)$_POST['id'];
+        $id_lich_chieu = $_POST['id_lich_chieu'];
         // lấy id lịch chiếu và chỗ đã chọn
         $sql = "SELECT id_lich_chieu, cho_da_chon FROM `admin_xn` WHERE id_xn = " . (int)$id_xn_rm;
         $result = $conn->query($sql);
@@ -33,11 +34,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             } else {
                 $ds_cho .= $cho_da_chon;
             }
-            echo "Thành công";
+
+            // cập nhật danh sách chỗ trong lịch chiếu
             $sql = "UPDATE lich_chieu SET ds_cho = '$ds_cho' WHERE id_lich_chieu = $id_lich_chieu";
             $conn->query($sql);
-
+            // cập nhật lại danh sách xác nhận
             $sql = "UPDATE admin_xn SET tinh_trang = '1' WHERE id_xn = " . (int)$id_xn_rm;
+            $conn->query($sql);
+
+            $sql = "UPDATE ve SET tinh_trang = 1 WHERE id = " . $id . " AND id_lich_chieu = " . $id_lich_chieu . ";";
             $conn->query($sql);
         } else {
             $sql = "UPDATE admin_xn SET tinh_trang = '2' WHERE id_xn = " . (int)$id_xn_rm;
@@ -55,26 +60,29 @@ $results = $conn->query($sql);
 $results = $results->fetch_all(MYSQLI_ASSOC)[0];
 $so_hang = (int)$results["so_hang"];
 
-$hoten = "Đặng Cao Hậu";
 $id_xn = [];
 $id_lich_chieu = [];
 $id_phong = [];
 $cho_da_chon = [];
 $ngay_chieu = [];
 $gio_chieu = [];
-$ten = [];
+$ten_phim = [];
 $ds_cho = [];
 $ngay_dat = [];
+$id = [];
+$ho_ten = [];
 // Lấy dữ liệu từ bảng admin_xn
 $sql = "SELECT 
     a.id_xn AS id_xn,
     l.id_lich_chieu AS id_lich_chieu, 
     l.id_phong AS id_phong, 
-    a.cho_da_chon as cho_da_chon, 
+    a.cho_da_chon AS cho_da_chon, 
     l.ngay_chieu AS ngay_chieu, 
     l.gio_chieu AS gio_chieu, 
-    p.ten AS ten,
-    a.ngay_dat AS ngay_dat
+    p.ten AS ten_phim, 
+    a.ngay_dat AS ngay_dat,
+    u.id AS id,                 -- Thêm ID người dùng
+    u.ho_ten AS ho_ten
 FROM 
     admin_xn a
 INNER JOIN 
@@ -83,8 +91,11 @@ INNER JOIN
     phim p ON l.id_phim = p.id_phim
 INNER JOIN 
     phong h ON l.id_phong = h.id_phong
+INNER JOIN 
+    users u ON a.id = u.id
 WHERE 
     a.tinh_trang = 0;
+
 ";
 $results = $conn->query($sql);
 $results = $results->fetch_all(MYSQLI_ASSOC);
@@ -97,15 +108,17 @@ foreach ($results as $result) {
     array_push($cho_da_chon, $result['cho_da_chon']);
     array_push($ngay_chieu, $result['ngay_chieu']);
     array_push($gio_chieu, $result['gio_chieu']);
-    array_push($ten, $result['ten']);
+    array_push($ten_phim, $result['ten_phim']);
     array_push($ds_cho, $result['cho_da_chon']);
     array_push(
         $ngay_dat,
         (new DateTime($result['ngay_dat']))->format("d/m/Y H:i:s")
     );
+    array_push($id, $result['id']);
+    array_push($ho_ten, $result['ho_ten']);
 }
 
-// id_user
+// id_user sử dụng tính năng
 $id_user = 1;
 
 $is_admin = 1;
@@ -151,7 +164,7 @@ if ($is_admin) {
         <h1>Danh sách khác hàng đã xác nhận mua</h1>
         <table border="1">
             <tr>
-                <td>STT</td>
+                <td>Id người đặt</td>
                 <td>Họ tên</td>
                 <td>Id lịch chiếu</td>
                 <td>Tên phim</td>
@@ -162,6 +175,7 @@ if ($is_admin) {
                 <td>Ngày đặt</td>
                 <td>Nội dung chuyển khoản yêu cầu</td>
                 <td>Xác nhận</td>
+                <td>Hủy</td>
             </tr>
             <?php for ($i = 0; $i < $so_hang; $i++) {
             ?>
@@ -169,10 +183,10 @@ if ($is_admin) {
 
                     <tr>
                         <input type="text" hidden value=<?php echo $id_xn[$i] ?> name="id_xn">
-                        <td><?php echo $i + 1 ?></td>
-                        <td><?php echo $hoten ?></td>
-                        <td><?php echo $id_lich_chieu[$i] ?></td>
-                        <td><?php echo $ten[$i] ?></td>
+                        <td><input type="text" readonly value=<?php echo $id[$i] ?> name="id"></td>
+                        <td><?php echo $ho_ten[$i] ?></td>
+                        <td><input type="text" readonly value=<?php echo $id_lich_chieu[$i] ?> name="id_lich_chieu"></td>
+                        <td><?php echo $ten_phim[$i] ?></td>
                         <td>Phòng <?php echo $id_phong[$i] ?></td>
                         <td><?php echo $gio_chieu[$i] ?></td>
                         <td><?php echo $cho_da_chon[$i] ?></td>
@@ -180,6 +194,7 @@ if ($is_admin) {
                         <td><?php echo $ngay_dat[$i] ?></td>
                         <td><?php echo $id_user . " " . $cho_da_chon[$i] . " " . $id_lich_chieu[$i] ?></td>
                         <td><button type="submit">Xác nhận</button></td>
+                        <td><button type="submit">Hủy</button></td>
                     </tr>
                 </form>
 
