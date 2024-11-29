@@ -76,7 +76,7 @@
   </div>
   <div class="nav_bar">
     <div class="nav_bar_logo">
-      <a href="main.php"><img src="./img/logo.png" alt="logo" /></a>
+      <a href="index.php"><img src="./img/logo.png" alt="logo" /></a>
     </div>
     <div class="movies">
       <a href="">PHIM</a>
