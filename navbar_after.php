@@ -39,7 +39,7 @@
         background-color: white;
         height: 11vh;
       }
-      .logo a {
+      .nav_bar_logo a {
         display: flex;
         height: 12vh;
         margin-left: 100px;
@@ -70,7 +70,7 @@
       </div>
     </div>
     <div class="nav_bar">
-      <div class="logo">
+      <div class="nav_bar_logo">
         <a href="main_after.php"><img src="./img/logo.png" alt="logo" /></a>
       </div>
       <div class="movies">

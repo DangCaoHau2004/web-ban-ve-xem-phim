@@ -1,5 +1,6 @@
 <?php
     //Liên kết với CSDL
+    include("navbar.php");
     include("database.php");
 
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
