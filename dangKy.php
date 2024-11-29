@@ -39,7 +39,9 @@
                 echo'<script>alert("Bạn đã đăng ký thành công!");
                         window.location.href = "navbar_after.php";</script>';
             } else {
-                echo '<script>alert("Lỗi đăng ký! ' . $conn->error . '");</script>';
+                $_SESSION['ERR'] = "Lỗi đăng ký! Vui lòng thử lại sau!";
+                header("Location: ERR404.php");
+                exit(); //Kết thúc lệnh sau khi chuyển hướng
             }
             $conn->close();
         }
