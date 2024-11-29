@@ -3,9 +3,9 @@
 include("database.php");
 
 // session để lưu thông báo lỗi
-if (isset($_SESSION['error'])) {
-    $error = $_SESSION['error'];  // biến error lưu session error
-    unset($_SESSION['error']); // xóa biến session
+if (isset($_SESSION['ERR'])) {
+    $error = $_SESSION['ERR'];  // biến error lưu session error
+    unset($_SESSION['ERR']); // xóa biến session
 } else {
     $error = "";
 }
@@ -36,8 +36,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['login'])) {
             exit();
         }
     } else {
-        // Nếu đăng nhập thất bại
-        $_SESSION['error'] = "Sai tên đăng nhập hoặc mật khẩu | Incorrect email or password"; // lưu error vào session
+        // Nếu đăng nhập khi ghi sai mật khẩu và email
+        $_SESSION['ERR'] = "Sai email hoặc mật khẩu | Incorrect email or password"; // lưu error vào session
         header("Location: " . $_SERVER['PHP_SELF']); // Chuyển hướng lại trang hiện tại
         exit();
     }
