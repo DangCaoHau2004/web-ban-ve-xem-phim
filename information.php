@@ -162,7 +162,7 @@
       $_SESSION['users']['sdt'] = $sdt;
       echo '<script>alert("Cập nhật thành công!");</script>';
     } else {
-      $_SESSION['ERR'] = "Lỗi đăng ký! Vui lòng thử lại sau!";
+      $_SESSION['ERR'] = "Lỗi cập nhật! Vui lòng thử lại sau!";
       header("Location: ERR404.php");
       exit(); //Kết thúc lệnh sau khi chuyển hướng
     }
