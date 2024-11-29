@@ -263,7 +263,7 @@
     </div>
     <!-- footer -->
     <?php
-    include("info.php");
+    include("foot.php");
     ?>
 
 </body>

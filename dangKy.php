@@ -39,7 +39,7 @@
                 echo'<script>alert("Bạn đã đăng ký thành công!");
                         window.location.href = "navbar_after.php";</script>';
             } else {
-                echo '<script>alert("Lỗi: ");</script>' . $conn->error;
+                echo '<script>alert("Lỗi đăng ký! ' . $conn->error . '");</script>';
             }
             $conn->close();
         }
