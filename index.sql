@@ -9,7 +9,6 @@ CREATE TABLE users (
     ngay_sinh DATE NOT NULL,
     gioi_tinh ENUM('Nam', 'Nữ', 'Khác') NOT NULL,
     sdt VARCHAR(15) NOT NULL,
-    id_ve VARCHAR(10),
     is_admin INT DEFAULT 0   
 );
 
@@ -58,9 +57,9 @@ FOREIGN KEY (id) REFERENCES users(id)
 
 
 
-INSERT INTO users (ho_ten, email, mat_khau, ngay_sinh, gioi_tinh, sdt, id_ve, is_admin)
+INSERT INTO users (ho_ten, email, mat_khau, ngay_sinh, gioi_tinh, sdt, is_admin)
 VALUES 
-('Quản Trị Viên', 'admin@example.com', 123456, '1990-01-01', 'Nam', '0123456789', NULL, 1);
+('Quản Trị Viên', 'admin@example.com', 123456, '1990-01-01', 'Nam', '0123456789', 1);
 
 INSERT INTO phim (ten, the_loai, thoi_luong, link_img, mo_ta, ngon_ngu) 
 VALUES
