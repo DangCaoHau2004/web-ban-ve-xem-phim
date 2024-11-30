@@ -42,29 +42,20 @@ CREATE TABLE lich_chieu (
 );
 
 CREATE TABLE admin_xn ( 
-id_xn INT PRIMARY KEY AUTO_INCREMENT, 
+id_xn INT PRIMARY KEY AUTO_INCREMENT,
+ma_ve VARCHAR(50) UNIQUE,
 id_lich_chieu INT, 
 id_phong INT, 
-tinh_trang INT, 
+tinh_trang INT NOT NULL, 
 cho_da_chon VARCHAR(255), 
 ngay_dat DATETIME DEFAULT CURRENT_TIMESTAMP,
+ngay_het_han DATE NOT NULL,
 id INT NOT NULL,
 FOREIGN KEY (id_lich_chieu) REFERENCES lich_chieu(id_lich_chieu), 
 FOREIGN KEY (id_phong) REFERENCES phong(id_phong),
 FOREIGN KEY (id) REFERENCES users(id)
 );
 
-CREATE TABLE ve (
-    id_ve INT AUTO_INCREMENT PRIMARY KEY,
-    ma_ve VARCHAR(50) UNIQUE NOT NULL,
-    ngay_dat DATE NOT NULL DEFAULT CURRENT_DATE,
-    ngay_het_han DATE NOT NULL,
-    id_lich_chieu INT NOT NULL,
-    id INT NOT NULL,
-    tinh_trang INT NOT NULL,
-    FOREIGN KEY (id_lich_chieu) REFERENCES lich_chieu(id_lich_chieu), 
-    FOREIGN KEY (id) REFERENCES users(id) 
-);
 
 
 INSERT INTO users (ho_ten, email, mat_khau, ngay_sinh, gioi_tinh, sdt, id_ve, is_admin)
@@ -115,7 +106,15 @@ SET GLOBAL event_scheduler = ON;
 
 
 CREATE EVENT xoa_ngay_chieu_cu
-ON SCHEDULE EVERY 1 DAY STARTS '2024-10-30 00:00:00'
+ON SCHEDULE EVERY 1 DAY
+STARTS '2024-10-30 00:00:00'
 DO
   DELETE FROM lich_chieu
   WHERE DATE(ngay_chieu) < CURDATE();
+
+CREATE EVENT xoa_ve_het_han
+ON SCHEDULE EVERY 1 DAY
+STARTS '2024-10-30 00:00:00'
+DO
+  DELETE FROM admin_xn
+  WHERE DATE(ngay_het_han) < CURDATE();

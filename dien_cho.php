@@ -1,15 +1,5 @@
 <?php
 include("database.php");
-function generateRandomString()
-{
-    $dskt = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
-    $dskt_len = strlen($dskt);
-    $randomString = '';
-    for ($i = 0; $i < 8; $i++) {
-        $randomString .= $dskt[rand(0, $dskt_len - 1)];
-    }
-    return $randomString;
-}
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $data = json_decode(file_get_contents("php://input"), true);
@@ -37,36 +27,39 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         // lấy danh sách các chỗ đã chọn trong phiên
         $selectedSeats = $_SESSION['selectedSeats'];
         // kiểm tra xem 1 trong các ghế đã đặt thì có ghế nào tồn tại trong db
+
+        // kiểm tra xem các chỗ đã đặt trong bảng admin_xn
+        $sql = "SELECT cho_da_chon FROM admin_xn WHERE id = " . $id . " AND id_lich_chieu = " . $id_lich_chieu;
+        $result = $conn->query($sql);
+        $cho_yc_xn_arr = $result->fetch_all(MYSQLI_ASSOC);
         foreach ($selectedSeats as $seat) {
             if (in_array($seat, $ds_cho_database)) {
                 $kt_ton_tai = true;
             }
         }
-        // nếu không tồn tại trong db
-        if (!$kt_ton_tai) {
-            $sql = "INSERT INTO admin_xn(id_lich_chieu, id_phong, tinh_trang, cho_da_chon, id) 
-        VALUES(" . $id_lich_chieu .  "," . $id_phong . ", 0, '" . $seats . "', " . $id . ")";
-            if ($conn->query($sql) === TRUE) {
-                while (true) {
-                    $ma_ve =    generateRandomString();
-                    $sql = "SELECT * FROM ve WHERE ma_ve = '" . $ma_ve . "'";
-                    $result = $conn->query($sql);
-                    $result = $result->fetch_all(MYSQLI_ASSOC);
-                    if (empty($result)) {
-                        break;
+        if (!empty($cho_yc_xn_arr)) {
+            foreach ($cho_yc_xn_arr as $cho) {
+                $cho_yc = explode(" ", $cho['cho_da_chon']);
+
+                foreach ($selectedSeats as $seat) {
+
+                    if (in_array($seat, $cho_yc)) {
+                        http_response_code(404);
+                        $_SESSION['ERR'] = "Bạn đã đặt một trong các chỗ đó rồi";
+                        exit();
                     }
                 }
-                $sql = "INSERT INTO ve (ma_ve, ngay_het_han, id_lich_chieu, id, tinh_trang) VALUES ('" . $ma_ve . "', '" . $ngay_het_han . "'," . $id_lich_chieu . ", " . $id . ", '0');";
-                if ($conn->query($sql) === TRUE) {
-                    http_response_code(200);
-                    echo "Cập nhật thành công!";
-                    unset($_SESSION['ds_cho']);
-                    unset($_SESSION['id_lich_chieu']);
-                    unset($_SESSION['selectedSeats']);
-                } else {
-                    http_response_code(404);
-                    $_SESSION['ERR'] = "Lỗi hiện tại không thể đặt vé!";
-                }
+            }
+        }
+        // nếu không tồn tại trong db
+        if (!$kt_ton_tai) {
+            $sql = "INSERT INTO admin_xn(id_lich_chieu, id_phong, tinh_trang, cho_da_chon, ngay_het_han, id) 
+        VALUES(" . $id_lich_chieu .  "," . $id_phong . ", 0, '" . $seats . "', '" . $ngay_het_han . "'," . $id . ")";
+            if ($conn->query($sql) === TRUE) {
+                http_response_code(200);
+                unset($_SESSION['ds_cho']);
+                unset($_SESSION['id_lich_chieu']);
+                unset($_SESSION['selectedSeats']);
             } else {
                 http_response_code(404);
                 echo "Lỗi cập nhật: " . $conn->error;

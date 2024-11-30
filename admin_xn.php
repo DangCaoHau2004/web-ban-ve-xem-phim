@@ -1,4 +1,14 @@
 <?php
+function generateRandomString()
+{
+    $dskt = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    $dskt_len = strlen($dskt);
+    $randomString = '';
+    for ($i = 0; $i < 8; $i++) {
+        $randomString .= $dskt[rand(0, $dskt_len - 1)];
+    }
+    return $randomString;
+}
 include("database.php");
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -39,20 +49,28 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 // cập nhật danh sách chỗ trong lịch chiếu
                 $sql = "UPDATE lich_chieu SET ds_cho = '$ds_cho' WHERE id_lich_chieu = $id_lich_chieu";
                 $conn->query($sql);
+
+                while (true) {
+                    $ma_ve = generateRandomString();
+                    $sql = "SELECT * FROM admin_xn WHERE ma_ve = '" . $ma_ve . "'";
+                    $result = $conn->query($sql);
+                    $result = $result->fetch_all(MYSQLI_ASSOC);
+                    if (empty($result)) {
+                        break;
+                    }
+                }
+
                 // cập nhật lại danh sách xác nhận
-                $sql = "UPDATE admin_xn SET tinh_trang = 1 WHERE id_xn = " . (int)$id_xn_rm;
+                $sql = "UPDATE admin_xn SET ma_ve = '" . $ma_ve . "', tinh_trang = 1 WHERE id_xn = " . (int)$id_xn_rm;
                 $conn->query($sql);
 
-                $sql = "UPDATE ve SET tinh_trang = 1 WHERE id_ve = " . (int)$id_xn_rm;
-                $conn->query($sql);
                 $_SESSION["thong_bao"] = "Thành Công";
                 header("Location: " . $_SERVER['PHP_SELF']);
                 exit();
             } else {
                 $sql = "UPDATE admin_xn SET tinh_trang = 2 WHERE id_xn = " . (int)$id_xn_rm;
                 $conn->query($sql);
-                $sql = "UPDATE ve SET tinh_trang = 2 WHERE id_ve = " . (int)$id_xn_rm;
-                $conn->query($sql);
+
                 $_SESSION["thong_bao"] = "Chỗ đã tồn tại";
                 header("Location: " . $_SERVER['PHP_SELF']);
                 exit();
@@ -63,8 +81,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $sql = "UPDATE admin_xn SET tinh_trang = 2 WHERE id_xn = " . (int)$id_xn_rm;
         $conn->query($sql);
 
-        $sql = "UPDATE ve SET tinh_trang = 2 WHERE id_ve = " . (int)$id_xn_rm;
-        $conn->query($sql);
+
         $_SESSION["thong_bao"] = "Đã hủy thành Công";
         header("Location: " . $_SERVER['PHP_SELF']);
         exit();
