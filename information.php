@@ -14,40 +14,64 @@
     referrerpolicy="no-referrer" />
 </head>
 <body>
+
 <?php
 include "navbar_after.php";
 // include("database.php");
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-  $ho_ten = $_POST['ho_ten'];
-  $ngay_sinh = $_POST['ngay_sinh'];
-  $gioi_tinh = $_POST['gioi_tinh'];
-  $sdt = $_POST['sdt'];
-  $email = $_POST['email'];
+  if (isset($_POST['ho_ten']) && isset($_POST['ngay_sinh']) && isset($_POST['gioi_tinh']) && isset($_POST['sdt']) && isset($_POST['email'])) {
+    $ho_ten = $_POST['ho_ten'];
+    $ngay_sinh = $_POST['ngay_sinh'];
+    $gioi_tinh = $_POST['gioi_tinh'];
+    $sdt = $_POST['sdt'];
+    $email = $_POST['email'];
 
-  // Update user information
-  $sql = "UPDATE users SET ho_ten=?, ngay_sinh=?, gioi_tinh=?, sdt=?, email=? WHERE email=?";
-  $stmt = $conn->prepare($sql);
-  $stmt->bind_param("ssssss", $ho_ten, $ngay_sinh, $gioi_tinh, $sdt, $email, $_SESSION['users']['email']);
-
-  if ($stmt->execute()) {
+    // Update user information
+    $sql = "UPDATE users SET ho_ten='$ho_ten', ngay_sinh='$ngay_sinh', gioi_tinh='$gioi_tinh', sdt='$sdt', email='$email' WHERE email='{$_SESSION['users']['email']}'";
+    if (mysqli_query($conn, $sql)) {
       $_SESSION['users']['ho_ten'] = $ho_ten;
       $_SESSION['users']['ngay_sinh'] = $ngay_sinh;
       $_SESSION['users']['gioi_tinh'] = $gioi_tinh;
       $_SESSION['users']['sdt'] = $sdt;
       $_SESSION['users']['email'] = $email;
-
-      echo '<script>alert("Cập nhật thành công!");</script>';
-  } else {
-      $_SESSION['ERR'] = "Lỗi cập nhật! Vui lòng thử lại sau!";
-      header("Location: ERR404.php");
-      exit(); // Kết thúc lệnh sau khi chuyển hướng
+      echo '<script>alert("Cập nhật thông tin thành công!");</script>';
+    } else {
+      echo '<script>alert("Lỗi cập nhật! Vui lòng thử lại sau!");</script>';
+    }
   }
-  $stmt->close();
+
+  if (isset($_POST['currentPassword']) && isset($_POST['newPassword']) && isset($_POST['confirmPassword'])) {
+    $op = $_POST['currentPassword'];
+    $np = $_POST['newPassword'];
+    $cnp = $_POST['confirmPassword'];
+    $email = $_SESSION['users']['email'];
+
+    if ($np == $cnp) {
+      $query = "SELECT * FROM users WHERE email = '$email' AND mat_khau = '$op'";
+      $result = mysqli_query($conn, $query);
+      $count = mysqli_num_rows($result);
+      if ($count > 0) {
+        $query = "UPDATE users SET mat_khau = '$np' WHERE email = '$email'";
+        $result = mysqli_query($conn, $query);
+        if ($result) {
+          echo '<script>alert("Mật khẩu cập nhật thành công!");</script>';
+        } else {
+          echo '<script>alert("Lỗi cập nhật mật khẩu! Vui lòng thử lại sau.");</script>';
+        }
+      } else {
+        echo '<script>alert("Mật khẩu cũ không trùng khớp!");</script>';
+      }
+    } else {
+      echo '<script>alert("Mật khẩu mới không trùng với mật khẩu xác nhận!");</script>';
+    }
+  }
 }
 
 $conn->close();
 ?>
+
+
 
   <form action="information.php" method="post">
     <div class="info">
@@ -147,7 +171,7 @@ $conn->close();
       <input type="password" id="confirmPassword" name="confirmPassword" required placeholder="Nhập xác nhận mật khẩu mới"> 
     </div> 
     <div class="submit-row"> 
-      <input type="submit" value="CẬP NHẬT"> 
+      <input type="submit" value="CẬP NHẬT" name="update"> 
     </div>
     </form>
   </div>
@@ -177,11 +201,11 @@ window.onclick = function(event) {
 }
 
 // Cập nhật xong sẽ thoát khỏi giao diện quên mật khẩu
-document.getElementById("passwordForm").onsubmit = function(event) {
-  event.preventDefault();
-  // alert("Password changed successfully!");
-  modal.style.display = "none";
-}
+// document.getElementById("passwordForm").onsubmit = function(event) {
+//   event.preventDefault();
+//   // alert("Password changed successfully!");
+//   modal.style.display = "none";
+// }
 </script>
 <?php
   include("foot.php");
