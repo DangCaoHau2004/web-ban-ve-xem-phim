@@ -23,17 +23,20 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
   $ngay_sinh = $_POST['ngay_sinh'];
   $gioi_tinh = $_POST['gioi_tinh'];
   $sdt = $_POST['sdt'];
+  $email = $_POST['email'];
 
-  // Update user information except email
-  $sql = "UPDATE users SET ho_ten=?, ngay_sinh=?, gioi_tinh=?, sdt=? WHERE email=?";
+  // Update user information
+  $sql = "UPDATE users SET ho_ten=?, ngay_sinh=?, gioi_tinh=?, sdt=?, email=? WHERE email=?";
   $stmt = $conn->prepare($sql);
-  $stmt->bind_param("sssss", $ho_ten, $ngay_sinh, $gioi_tinh, $sdt, $_SESSION['users']['email']);
+  $stmt->bind_param("ssssss", $ho_ten, $ngay_sinh, $gioi_tinh, $sdt, $email, $_SESSION['users']['email']);
 
   if ($stmt->execute()) {
       $_SESSION['users']['ho_ten'] = $ho_ten;
       $_SESSION['users']['ngay_sinh'] = $ngay_sinh;
       $_SESSION['users']['gioi_tinh'] = $gioi_tinh;
       $_SESSION['users']['sdt'] = $sdt;
+      $_SESSION['users']['email'] = $email;
+
       echo '<script>alert("Cập nhật thành công!");</script>';
   } else {
       $_SESSION['ERR'] = "Lỗi cập nhật! Vui lòng thử lại sau!";
@@ -69,8 +72,7 @@ $conn->close();
                   <input
                     class="input"
                     type="text"
-                    readonly
-                    placeholder="abc@gmail.com"
+                    name="email"
                     value="<?php echo $_SESSION['users']['email']; ?>" />
                 </div>
               </td>
