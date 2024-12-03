@@ -5,171 +5,47 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Document</title>
-  <!-- <link rel="stylesheet" href="information.css" /> -->
+  <link rel="stylesheet" href="information.css" />
   <link
     rel="stylesheet"
     href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
     integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
     crossorigin="anonymous"
     referrerpolicy="no-referrer" />
-  <style>
-    body {
-      margin: 0;
-      padding: 0;
-      background-color: #f9f9f9;
-      font-family: Arial;
-    }
-
-    input[type="date"]::-webkit-inner-spin-button,
-    input[type="date"]::-webkit-calendar-picker-indicator {
-      display: none;
-      -webkit-appearance: none;
-    }
-
-    .fa-circle-user {
-      padding-top: 2px;
-    }
-
-    .info {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      margin-top: 25px;
-    }
-
-    .info_text {
-      margin-right: 970px;
-      font-weight: bold;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 16px;
-      height: 40px;
-      width: 210px;
-      color: white;
-      background-color: rgb(2, 84, 184);
-    }
-
-    .info_box {
-      display: flex;
-      background-color: white;
-      width: 80%;
-      height: 80vh;
-    }
-
-    .inside_box {
-      margin: 20px;
-    }
-
-    .left p {
-      font-size: 18px;
-      margin-bottom: 10px;
-    }
-
-    .left i {
-      color: gray;
-      font-size: 19px;
-      position: absolute;
-      margin: 7px;
-      margin-left: 8px;
-    }
-
-    .left input {
-      padding-left: 35px;
-    }
-
-    .input {
-      padding-left: 10px;
-      font-size: 18px;
-      height: 30px;
-      width: 70vh;
-    }
-
-    .right {
-      margin-left: 50px;
-    }
-
-    .right p {
-      font-size: 18px;
-      margin-bottom: 10px;
-    }
-
-    .right i {
-      color: gray;
-      font-size: 19px;
-      position: absolute;
-      margin: 9px;
-    }
-
-    .right input {
-      padding-left: 35px;
-    }
-
-    #gender {
-      padding-left: 30px;
-      font-size: 18px;
-      height: 31px;
-      width: 75vh;
-    }
-
-    .change_pass {
-      margin-top: 25px;
-    }
-
-    .change_pass a {
-      text-decoration: none;
-      color: blue;
-      font-size: 18px;
-    }
-
-    .submit {
-      display: flex;
-      justify-content: center;
-    }
-
-    .submit input {
-      font-size: 14px;
-      color: white;
-      background-color: #318ce7;
-      border: none;
-      border-radius: 5px;
-      width: 150px;
-      height: 40px;
-    }
-  </style>
 </head>
-
 <body>
-  <?php
-  include "navbar_after.php";
-  // Connect to database
-  // include("database.php");
-  if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $ho_ten = $_POST['ho_ten'];
-    $ngay_sinh = $_POST['ngay_sinh'];
-    $gioi_tinh = $_POST['gioi_tinh'];
-    $sdt = $_POST['sdt'];
+<?php
+include "navbar_after.php";
+// include("database.php");
 
-    // Update user information except email
-    $sql = "UPDATE users SET ho_ten=?, ngay_sinh=?, gioi_tinh=?, sdt=? WHERE email=?";
-    $stmt = $conn->prepare($sql);
-    $stmt->bind_param("sssss", $ho_ten, $ngay_sinh, $gioi_tinh, $sdt, $_SESSION['users']['email']);
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+  $ho_ten = $_POST['ho_ten'];
+  $ngay_sinh = $_POST['ngay_sinh'];
+  $gioi_tinh = $_POST['gioi_tinh'];
+  $sdt = $_POST['sdt'];
 
-    if ($stmt->execute()) {
+  // Update user information except email
+  $sql = "UPDATE users SET ho_ten=?, ngay_sinh=?, gioi_tinh=?, sdt=? WHERE email=?";
+  $stmt = $conn->prepare($sql);
+  $stmt->bind_param("sssss", $ho_ten, $ngay_sinh, $gioi_tinh, $sdt, $_SESSION['users']['email']);
+
+  if ($stmt->execute()) {
       $_SESSION['users']['ho_ten'] = $ho_ten;
       $_SESSION['users']['ngay_sinh'] = $ngay_sinh;
       $_SESSION['users']['gioi_tinh'] = $gioi_tinh;
       $_SESSION['users']['sdt'] = $sdt;
       echo '<script>alert("Cập nhật thành công!");</script>';
-    } else {
+  } else {
       $_SESSION['ERR'] = "Lỗi cập nhật! Vui lòng thử lại sau!";
       header("Location: ERR404.php");
-      exit(); //Kết thúc lệnh sau khi chuyển hướng
-    }
-
-    $stmt->close();
+      exit(); // Kết thúc lệnh sau khi chuyển hướng
   }
-  ?>
+  $stmt->close();
+}
+
+$conn->close();
+?>
+
   <form action="information.php" method="post">
     <div class="info">
       <div class="info_text">
@@ -248,5 +124,63 @@
     </div>
   </form>
 </body>
-
+<!-- Modal -->
+<div id="passwordModal" class="modal">
+  <div class="modal-content">
+    <div class="modal-header"> 
+      <h2>ĐỔI MẬT KHẨU</h2><span class="close">&times;</span> 
+    </div>
+    <hr>
+    <form id="passwordForm" class="passwordForm" method="post" action="information.php">
+    <div class="form-row"> 
+      <label for="currentPassword">Mật khẩu hiện tại<span style="color: red">*</span></label> 
+      <input type="password" id="currentPassword" name="currentPassword" required placeholder="Nhập mật khẩu hiện tại"> 
+    </div> 
+    <div class="form-row"> 
+      <label for="newPassword">Mật khẩu mới<span style="color: red">*</span></label> 
+      <input type="password" id="newPassword" name="newPassword" required placeholder="Nhập mật khẩu mới"> 
+    </div> 
+    <div class="form-row"> 
+      <label for="confirmPassword">Xác nhận mật khẩu mới<span style="color: red">*</span></label> 
+      <input type="password" id="confirmPassword" name="confirmPassword" required placeholder="Nhập xác nhận mật khẩu mới"> 
+    </div> 
+    <div class="submit-row"> 
+      <input type="submit" value="CẬP NHẬT"> 
+    </div>
+    </form>
+  </div>
+</div>
 </html>
+<script>
+var modal = document.getElementById("passwordModal");
+var link = document.querySelector(".change_pass a");
+var span = document.getElementsByClassName("close")[0];
+
+// Click vào đổi mật khẩu
+link.onclick = function(event) {
+  event.preventDefault(); // Tránh nó tự tắt
+  modal.style.display = "block";
+}
+
+// Click vào dấu x để thoát
+span.onclick = function() {
+  modal.style.display = "none";
+}
+
+// Click ra bên ngoài cũng sẽ thoát
+window.onclick = function(event) {
+  if (event.target == modal) {
+    modal.style.display = "none";
+  }
+}
+
+// Cập nhật xong sẽ thoát khỏi giao diện quên mật khẩu
+document.getElementById("passwordForm").onsubmit = function(event) {
+  event.preventDefault();
+  // alert("Password changed successfully!");
+  modal.style.display = "none";
+}
+</script>
+<?php
+  include("foot.php");
+?>
