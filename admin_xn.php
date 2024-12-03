@@ -152,102 +152,115 @@ foreach ($results as $result) {
     array_push($ho_ten, $result['ho_ten']);
 }
 
-// id_user sử dụng tính năng
-$id_user = 1;
+if (isset($_SESSION["user_id"])) {
 
-$is_admin = 1;
-if ($is_admin) {
+
+    $user_id = $_SESSION["user_id"];
+    // Kiểm tra quyền admin
+    $sql = "SELECT is_admin from users where id = " . $user_id;
+    $result = $conn->query($sql);
+    $result = $result->fetch_all(MYSQLI_ASSOC)[0];
+    $is_admin = $result["is_admin"];
+
+
+    $is_admin = 1;
+    if ($is_admin) {
 ?>
-    <!DOCTYPE html>
-    <html lang="en">
+        <!DOCTYPE html>
+        <html lang="en">
 
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Xác nhận</title>
-        <style>
-            body {
-                width: 100%;
-                height: auto;
-                display: flex;
-                flex-direction: column;
-                justify-content: center;
-                align-items: center;
-            }
+        <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>Xác nhận</title>
+            <style>
+                body {
+                    width: 100%;
+                    height: auto;
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: center;
+                    align-items: center;
+                }
 
-            form {
-                margin: 100px;
-            }
+                form {
+                    margin: 100px;
+                }
 
-            .hidden {
-                display: none;
-            }
-        </style>
-    </head>
+                .hidden {
+                    display: none;
+                }
+            </style>
+        </head>
 
-    <body>
-        <?php if (isset($_SESSION["thong_bao"])) { ?>
-            <script>
-                alert('<?php echo $_SESSION["thong_bao"]; ?>');
-            </script>
-            <?php unset($_SESSION["thong_bao"]);
-            ?>
-        <?php } ?>
-        <div>
-            <button style="background-color: blueviolet; border: 0; padding: 5px;">
-                <a href="./admin_sp.php" style="text-decoration: none; color: white;">Sửa phim</a>
-            </button>
-            <button style="background-color: blueviolet; border: 0; padding: 5px;">
-                <a href="./admin_slp.php" style="text-decoration: none; color: white;">Sửa lịch phim</a>
-            </button>
-        </div>
-
-        <h1>Danh sách khác hàng đã xác nhận mua</h1>
-        <table border="1">
-            <tr>
-                <td>Id người đặt</td>
-                <td>Họ tên</td>
-                <td>Id lịch chiếu</td>
-                <td>Tên phim</td>
-                <td>Phòng</td>
-                <td>Giờ chiếu</td>
-                <td>Chỗ đã đặt</td>
-                <td>Giá vé</td>
-                <td>Ngày đặt</td>
-                <td>Nội dung chuyển khoản yêu cầu</td>
-                <td>Xác nhận</td>
-                <td>Hủy</td>
-            </tr>
-            <?php for ($i = 0; $i < $so_hang; $i++) {
-            ?>
-                <form action="" method="post">
-
-                    <tr>
-                        <input type="text" hidden value=<?php echo $id_xn[$i] ?> name="id_xn">
-                        <td><input type="text" readonly value=<?php echo $id[$i] ?> name="id"></td>
-                        <td><?php echo $ho_ten[$i] ?></td>
-                        <td><input type="text" readonly value=<?php echo $id_lich_chieu[$i] ?> name="id_lich_chieu"></td>
-                        <td><?php echo $ten_phim[$i] ?></td>
-                        <td>Phòng <?php echo $id_phong[$i] ?></td>
-                        <td><?php echo $gio_chieu[$i] ?></td>
-                        <td><?php echo $cho_da_chon[$i] ?></td>
-                        <td>Tổng: <?php echo $gia_ve * count(explode(" ", $cho_da_chon[$i])) ?></td>
-                        <td><?php echo $ngay_dat[$i] ?></td>
-                        <td><?php echo $id_user . " " . $cho_da_chon[$i] . " " . $id_lich_chieu[$i] ?></td>
-                        <td><button type="submit" value="xac_nhan" name="btn">Xác nhận</button></td>
-                        <td><button type="submit" value="huy" name="btn">Hủy</button></td>
-                    </tr>
-                </form>
-
+        <body>
+            <?php if (isset($_SESSION["thong_bao"])) { ?>
+                <script>
+                    alert('<?php echo $_SESSION["thong_bao"]; ?>');
+                </script>
+                <?php unset($_SESSION["thong_bao"]);
+                ?>
             <?php } ?>
-        </table>
-    </body>
-    <script>
-        setTimeout('window.location.reload();', 30000)
-    </script>
+            <div>
+                <button style="background-color: blueviolet; border: 0; padding: 5px;">
+                    <a href="./admin_sp.php" style="text-decoration: none; color: white;">Sửa phim</a>
+                </button>
+                <button style="background-color: blueviolet; border: 0; padding: 5px;">
+                    <a href="./admin_slp.php" style="text-decoration: none; color: white;">Sửa lịch phim</a>
+                </button>
+            </div>
 
-    </html>
+            <h1>Danh sách khác hàng đã xác nhận mua</h1>
+            <table border="1">
+                <tr>
+                    <td>Id người đặt</td>
+                    <td>Họ tên</td>
+                    <td>Id lịch chiếu</td>
+                    <td>Tên phim</td>
+                    <td>Phòng</td>
+                    <td>Giờ chiếu</td>
+                    <td>Chỗ đã đặt</td>
+                    <td>Giá vé</td>
+                    <td>Ngày đặt</td>
+                    <td>Nội dung chuyển khoản yêu cầu</td>
+                    <td>Xác nhận</td>
+                    <td>Hủy</td>
+                </tr>
+                <?php for ($i = 0; $i < $so_hang; $i++) {
+                ?>
+                    <form action="" method="post">
+
+                        <tr>
+                            <input type="text" hidden value=<?php echo $id_xn[$i] ?> name="id_xn">
+                            <td><input type="text" readonly value=<?php echo $id[$i] ?> name="id"></td>
+                            <td><?php echo $ho_ten[$i] ?></td>
+                            <td><input type="text" readonly value=<?php echo $id_lich_chieu[$i] ?> name="id_lich_chieu"></td>
+                            <td><?php echo $ten_phim[$i] ?></td>
+                            <td>Phòng <?php echo $id_phong[$i] ?></td>
+                            <td><?php echo $gio_chieu[$i] ?></td>
+                            <td><?php echo $cho_da_chon[$i] ?></td>
+                            <td>Tổng: <?php echo $gia_ve * count(explode(" ", $cho_da_chon[$i])) ?></td>
+                            <td><?php echo $ngay_dat[$i] ?></td>
+                            <td><?php echo $id_user . " " . $cho_da_chon[$i] . " " . $id_lich_chieu[$i] ?></td>
+                            <td><button type="submit" value="xac_nhan" name="btn">Xác nhận</button></td>
+                            <td><button type="submit" value="huy" name="btn">Hủy</button></td>
+                        </tr>
+                    </form>
+
+                <?php } ?>
+            </table>
+        </body>
+        <script>
+            setTimeout('window.location.reload();', 30000)
+        </script>
+
+        </html>
 <?php } else {
+        $_SESSION["ERR"] = "Bạn không có quyền truy cập trang này!";
+        header("Location: ERR404.php");
+        exit();
+    }
+} else {
     $_SESSION["ERR"] = "Bạn không có quyền truy cập trang này!";
     header("Location: ERR404.php");
     exit();

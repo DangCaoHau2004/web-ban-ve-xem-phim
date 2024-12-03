@@ -182,187 +182,197 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         exit();
     }
 }
+if (isset($_SESSION["user_id"])) {
 
-// Kiểm tra quyền admin
-$is_admin = 1;
-if ($is_admin) {
-    // Lấy dữ liệu lịch chiếu
-    $sql = "SELECT * FROM lich_chieu";
-    $results = $conn->query($sql);
-    $results = $results->fetch_all(MYSQLI_ASSOC);
 
-    $lich_chieu = [];
-    foreach ($results as $result) {
-        $sql = "SELECT ten FROM phim WHERE id_phim = " . (int) $result["id_phim"];
-        $r = $conn->query($sql);
-        $r = $r->fetch_all(MYSQLI_ASSOC)[0];
-        array_push($lich_chieu, [
-            "id_lich_chieu" => $result["id_lich_chieu"],
-            "id_phim" => $result["id_phim"],
-            "ten_phim" => $r["ten"],
-            "rap_chieu" => $result["rap_chieu"],
-            "ngay_chieu" => $result["ngay_chieu"],
-            "gio_chieu" => $result["gio_chieu"],
-            "id_phong" => $result["id_phong"],
-            "ds_cho" => $result["ds_cho"]
-        ]);
-    }
-    $sql = "SELECT id_phong FROM `phong`";
-    $results = $conn->query($sql);
-    $ds_id_phong = $results->fetch_all(MYSQLI_ASSOC);
+    $user_id = $_SESSION["user_id"];
+    // Kiểm tra quyền admin
+    $sql = "SELECT is_admin from users where id = " . $user_id;
+    $result = $conn->query($sql);
+    $result = $result->fetch_all(MYSQLI_ASSOC)[0];
+    $is_admin = $result["is_admin"];
+    if ($is_admin) {
+        // Lấy dữ liệu lịch chiếu
+        $sql = "SELECT * FROM lich_chieu";
+        $results = $conn->query($sql);
+        $results = $results->fetch_all(MYSQLI_ASSOC);
+
+        $lich_chieu = [];
+        foreach ($results as $result) {
+            $sql = "SELECT ten FROM phim WHERE id_phim = " . (int) $result["id_phim"];
+            $r = $conn->query($sql);
+            $r = $r->fetch_all(MYSQLI_ASSOC)[0];
+            array_push($lich_chieu, [
+                "id_lich_chieu" => $result["id_lich_chieu"],
+                "id_phim" => $result["id_phim"],
+                "ten_phim" => $r["ten"],
+                "rap_chieu" => $result["rap_chieu"],
+                "ngay_chieu" => $result["ngay_chieu"],
+                "gio_chieu" => $result["gio_chieu"],
+                "id_phong" => $result["id_phong"],
+                "ds_cho" => $result["ds_cho"]
+            ]);
+        }
+        $sql = "SELECT id_phong FROM `phong`";
+        $results = $conn->query($sql);
+        $ds_id_phong = $results->fetch_all(MYSQLI_ASSOC);
 ?>
-    <!DOCTYPE html>
-    <html lang="en">
+        <!DOCTYPE html>
+        <html lang="en">
 
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Sửa lịch phim</title>
-        <style>
-            body {
-                width: 100%;
-                height: auto;
-                display: flex;
-                flex-direction: column;
-                justify-content: center;
-                align-items: center;
-            }
+        <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>Sửa lịch phim</title>
+            <style>
+                body {
+                    width: 100%;
+                    height: auto;
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: center;
+                    align-items: center;
+                }
 
-            .hidden {
-                display: none;
-            }
+                .hidden {
+                    display: none;
+                }
 
-            .form_tlc {
-                margin-top: 30px;
-            }
+                .form_tlc {
+                    margin-top: 30px;
+                }
 
-            .form_tlc label {
-                display: block;
-                margin-bottom: 5px;
-            }
+                .form_tlc label {
+                    display: block;
+                    margin-bottom: 5px;
+                }
 
-            .form_tlc input {
-                display: block;
-                width: 100%;
-                padding: 8px;
-                margin-bottom: 10px;
-            }
+                .form_tlc input {
+                    display: block;
+                    width: 100%;
+                    padding: 8px;
+                    margin-bottom: 10px;
+                }
 
-            select {
-                width: 100px;
-                margin-bottom: 60px;
+                select {
+                    width: 100px;
+                    margin-bottom: 60px;
 
-            }
+                }
 
-            .form_tlc button {
-                display: block;
-                width: 100%;
-                padding: 10px;
-                background-color: green;
-                color: white;
-                border: none;
-                cursor: pointer;
-            }
-        </style>
-    </head>
+                .form_tlc button {
+                    display: block;
+                    width: 100%;
+                    padding: 10px;
+                    background-color: green;
+                    color: white;
+                    border: none;
+                    cursor: pointer;
+                }
+            </style>
+        </head>
 
-    <body>
-        <div style="margin-bottom: 20px;">
-            <button style="background-color: blueviolet; border: 0; padding: 5px;">
-                <a href="./admin_sp.php" style="text-decoration: none; color: white;">Sửa phim</a>
-            </button>
-            <button style="background-color: blueviolet; border: 0; padding: 5px;">
-                <a href="./admin_xn.php" style="text-decoration: none; color: white;">Xác nhận</a>
-            </button>
-        </div>
-        <?php if (isset($_SESSION["thong_bao"])) { ?>
-            <script>
-                alert('<?php echo $_SESSION["thong_bao"]; ?>');
-            </script>
-            <?php unset($_SESSION["thong_bao"]);
-            ?>
-        <?php } ?>
-        <button id="them_lich_chieu">Điền thêm lịch chiếu</button>
-        <form action="" method="post" class="form_tlc hidden">
-            <label for="id_phim">Id phim</label>
-            <input type="number" name="id_phim" id="id_phim" required>
-
-            <label for="rap_chieu">Rạp chiếu</label>
-            <input readonly type="text" name="rap_chieu" id="rap_chieu" value="Nhóm 4" required>
-
-            <label for="ngay_chieu">Ngày chiếu</label>
-            <input type="date" name="ngay_chieu" id="ngay_chieu" required>
-
-            <label for="gio_chieu">Giờ chiếu</label>
-            <input type="time" name="gio_chieu" id="gio_chieu" required>
-
-            <label for="id_phong">Id phòng</label>
-            <select name="id_phong" id="id_phong">
-                <?php foreach ($ds_id_phong as $ds) { ?>
-                    <option value="<?php echo $ds["id_phong"]; ?>"><?php echo $ds["id_phong"]; ?></option>
-                <?php } ?>
-            </select>
-            <input type="hidden" name="ds_cho" value="" required>
-
-            <button type="submit">Thêm lịch chiếu</button>
-        </form>
-
-        <h1>Sửa lịch chiếu</h1>
-        <table border="1">
-            <tr>
-                <td>Id lịch chiếu</td>
-                <td>Tên phim</td>
-                <td>Rạp Chiếu</td>
-                <td>Ngày Chiếu</td>
-                <td>Giờ Chiếu</td>
-                <td>Phòng Số</td>
-                <td>DS Chỗ</td>
-                <td>Sửa</td>
-                <td>Xóa</td>
-            </tr>
-            <?php foreach ($lich_chieu as $lc) { ?>
-                <form action="" method="post">
-                    <tr>
-                        <td>
-                            <input type="text" name="id_lich_chieu" value="<?php echo $lc["id_lich_chieu"]; ?>">
-                        </td>
-                        <input type="hidden" name="id_phim" value="<?php echo $lc['id_phim']; ?>" required>
-                        <td><input readonly type="text" name="ten_phim" value="<?php echo $lc['ten_phim']; ?>" required></td>
-                        <td><input readonly type="text" name="rap_chieu" value="<?php echo $lc['rap_chieu']; ?>" required></td>
-                        <td><input type="date" name="ngay_chieu" value="<?php echo $lc['ngay_chieu']; ?>" required></td>
-                        <td><input type="time" name="gio_chieu" value="<?php echo $lc['gio_chieu']; ?>" required></td>
-                        <td>
-                            <select name="id_phong" id="id_phong" style="margin: 0;">
-                                <?php foreach ($ds_id_phong as $ds) { ?>
-                                    <?php if ($lc["id_phong"] == $ds["id_phong"]) { ?>
-                                        <option value="<?php echo $ds["id_phong"]; ?>" selected>
-                                            <?php echo $ds["id_phong"]; ?>
-                                        </option>
-                                    <?php } else { ?>
-                                        <option value="<?php echo $ds["id_phong"]; ?>">
-                                            <?php echo $ds["id_phong"]; ?>
-                                        </option>
-                                    <?php } ?>
-                                <?php } ?>
-                            </select>
-                        </td>
-
-                        <td><input readonly type="text" name="ds_cho" value="<?php echo $lc['ds_cho']; ?>" required></td>
-                        <td><button type="submit" name="xu_ly" value="sua">Sửa</button></td>
-                        <td><button type="submit" name="xu_ly" value="xoa">Xóa</button></td>
-                    </tr>
-                </form>
+        <body>
+            <div style="margin-bottom: 20px;">
+                <button style="background-color: blueviolet; border: 0; padding: 5px;">
+                    <a href="./admin_sp.php" style="text-decoration: none; color: white;">Sửa phim</a>
+                </button>
+                <button style="background-color: blueviolet; border: 0; padding: 5px;">
+                    <a href="./admin_xn.php" style="text-decoration: none; color: white;">Xác nhận</a>
+                </button>
+            </div>
+            <?php if (isset($_SESSION["thong_bao"])) { ?>
+                <script>
+                    alert('<?php echo $_SESSION["thong_bao"]; ?>');
+                </script>
+                <?php unset($_SESSION["thong_bao"]);
+                ?>
             <?php } ?>
-        </table>
-        <script>
-            document.querySelector("#them_lich_chieu").addEventListener("click", () => {
-                document.querySelector(".form_tlc").classList.toggle("hidden");
-            })
-        </script>
-    </body>
+            <button id="them_lich_chieu">Điền thêm lịch chiếu</button>
+            <form action="" method="post" class="form_tlc hidden">
+                <label for="id_phim">Id phim</label>
+                <input type="number" name="id_phim" id="id_phim" required>
 
-    </html>
+                <label for="rap_chieu">Rạp chiếu</label>
+                <input readonly type="text" name="rap_chieu" id="rap_chieu" value="Nhóm 4" required>
+
+                <label for="ngay_chieu">Ngày chiếu</label>
+                <input type="date" name="ngay_chieu" id="ngay_chieu" required>
+
+                <label for="gio_chieu">Giờ chiếu</label>
+                <input type="time" name="gio_chieu" id="gio_chieu" required>
+
+                <label for="id_phong">Id phòng</label>
+                <select name="id_phong" id="id_phong">
+                    <?php foreach ($ds_id_phong as $ds) { ?>
+                        <option value="<?php echo $ds["id_phong"]; ?>"><?php echo $ds["id_phong"]; ?></option>
+                    <?php } ?>
+                </select>
+                <input type="hidden" name="ds_cho" value="" required>
+
+                <button type="submit">Thêm lịch chiếu</button>
+            </form>
+
+            <h1>Sửa lịch chiếu</h1>
+            <table border="1">
+                <tr>
+                    <td>Id lịch chiếu</td>
+                    <td>Tên phim</td>
+                    <td>Rạp Chiếu</td>
+                    <td>Ngày Chiếu</td>
+                    <td>Giờ Chiếu</td>
+                    <td>Phòng Số</td>
+                    <td>DS Chỗ</td>
+                    <td>Sửa</td>
+                    <td>Xóa</td>
+                </tr>
+                <?php foreach ($lich_chieu as $lc) { ?>
+                    <form action="" method="post">
+                        <tr>
+                            <td>
+                                <input type="text" name="id_lich_chieu" value="<?php echo $lc["id_lich_chieu"]; ?>">
+                            </td>
+                            <input type="hidden" name="id_phim" value="<?php echo $lc['id_phim']; ?>" required>
+                            <td><input readonly type="text" name="ten_phim" value="<?php echo $lc['ten_phim']; ?>" required></td>
+                            <td><input readonly type="text" name="rap_chieu" value="<?php echo $lc['rap_chieu']; ?>" required></td>
+                            <td><input type="date" name="ngay_chieu" value="<?php echo $lc['ngay_chieu']; ?>" required></td>
+                            <td><input type="time" name="gio_chieu" value="<?php echo $lc['gio_chieu']; ?>" required></td>
+                            <td>
+                                <select name="id_phong" id="id_phong" style="margin: 0;">
+                                    <?php foreach ($ds_id_phong as $ds) { ?>
+                                        <?php if ($lc["id_phong"] == $ds["id_phong"]) { ?>
+                                            <option value="<?php echo $ds["id_phong"]; ?>" selected>
+                                                <?php echo $ds["id_phong"]; ?>
+                                            </option>
+                                        <?php } else { ?>
+                                            <option value="<?php echo $ds["id_phong"]; ?>">
+                                                <?php echo $ds["id_phong"]; ?>
+                                            </option>
+                                        <?php } ?>
+                                    <?php } ?>
+                                </select>
+                            </td>
+
+                            <td><input readonly type="text" name="ds_cho" value="<?php echo $lc['ds_cho']; ?>" required></td>
+                            <td><button type="submit" name="xu_ly" value="sua">Sửa</button></td>
+                            <td><button type="submit" name="xu_ly" value="xoa">Xóa</button></td>
+                        </tr>
+                    </form>
+                <?php } ?>
+            </table>
+            <script>
+                document.querySelector("#them_lich_chieu").addEventListener("click", () => {
+                    document.querySelector(".form_tlc").classList.toggle("hidden");
+                })
+            </script>
+        </body>
+
+        </html>
 <?php } else {
-    $_SESSION["ERR"] = "Bạn không có quyền truy cập trang này!";
+        $_SESSION["ERR"] = "Bạn không có quyền truy cập trang này!";
+        header("Location: ERR404.php");
+    }
+} else {
+    $_SESSION["ERR"] = "Bạn chưa đăng nhập";
     header("Location: ERR404.php");
 } ?>
