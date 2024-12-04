@@ -1,5 +1,5 @@
 <?php
-$id_phim = 1;
+$id_phim = 3;
 include("database.php");
 $results =  $conn->query("SELECT ten, the_loai, thoi_luong, link_img, mo_ta, ngon_ngu FROM phim WHERE id_phim = " . $id_phim);
 $results = $results->fetch_all(MYSQLI_ASSOC)[0];
@@ -118,9 +118,8 @@ $chi_tiet_phim = [
         <h2><?php echo $chi_tiet_phim["ten"] ?></h2>
         <p><strong>Thể loại:</strong> <?php echo $chi_tiet_phim["the_loai"] ?> </p>
         <p><strong>Thời gian:</strong> <?php echo $chi_tiet_phim["thoi_luong"] ?></p>
-        <p><strong>Đạo diễn:</strong> Nguyễn Hữu Linh</p>
-        <p><strong>Diễn viên:</strong> Mai Thùy, Hoàng Nam, Anh Tuấn</p>
-        <p><strong>Mô tả:</strong> Cô Dâu Hào Môn kể về câu chuyện của một cô gái trẻ bị cuốn vào cuộc sống xa hoa của một gia đình giàu có, nơi tình yêu và quyền lực đều có những thử thách lớn. Cuộc sống của cô thay đổi khi cô gặp một chàng trai bí ẩn và câu chuyện tình yêu của họ bắt đầu.</p>
+        <p><strong>Mô tả:</strong><?php echo $chi_tiet_phim["mo_ta"] ?></p>
+        <p><strong>Ngôn ngữ:</strong><?php echo $chi_tiet_phim["ngon_ngu"] ?></p>
 
         <!-- Lịch chiếu và đặt vé -->
         <div class="showtimes">
