@@ -1,6 +1,3 @@
-<?php
-    include('navbar.php');
-?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -150,7 +147,9 @@
 
 <body>
     <!-- navbar -->
-    <div class="navbar"></div>
+    <?php
+        include("navbar.php");
+    ?>
     <!-- main -->
     <div class="main">
         <!-- slide -->
