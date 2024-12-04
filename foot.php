@@ -7,14 +7,14 @@
     <title>Footer</title>
 
     <style>
-        /* Style cho tab Thông tin */
+        /* Style cho chân trang */
         body {
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
         }
 
-        /* Style cho khung của tab Thông tin */
+        /* Style cho khung của chân trang */
         .frame_info {
             margin-top: 50px;
             display: flex;
@@ -25,7 +25,7 @@
             border-top: 1px solid gray;
         }
 
-        /* Style cho item của tab thông tin */
+        /* Style cho item của chân trang */
         .item_info {
             margin-right: 160px;
         }
@@ -44,7 +44,7 @@
             padding-bottom: 5px;
         }
 
-        /* Style cho item "Cụm rạp Beta" */
+        /* Style cho item "Cụm rạp" */
         .beta {
             width: 465px;
             padding-left: 11%;
@@ -64,12 +64,6 @@
             cursor: pointer;
         }
 
-        /* Style cho địa chỉ "Cụm rạp beta" khi trỏ chuột */
-        .address:hover {
-            text-decoration: underline;
-            color: #0056b3;
-        }
-
         /* Style cho item "Liên hệ */
         .contact {
             width: 225px;
@@ -84,15 +78,15 @@
 </head>
 
 <body>
-    <!-- Tab Thông tin -->
+    <!-- Footer -->
     <div class="frame_info">
         <!-- Ảnh logo -->
         <div class="item_info">
-            <img src="./img/logo.png" alt="Beta Cinemas Logo" class="logo">
+            <img src="./img/logo.png" alt="Cinemas Logo" class="logo">
         </div>
 
         <div class="item_info">
-            <!-- Cụm rạp Beta -->
+            <!-- Cụm rạp-->
             <div class="beta">
                 <h3>CỤM RẠP</h3>
                 <ul>
@@ -125,13 +119,13 @@
             <div class="contact">
                 <h3>LIÊN HỆ</h3>
                 <p><strong>CÔNG TY CỔ PHẦN MEDIA</strong></p>
-                <p>Giấy chứng nhận ĐKKD số: 0106633482 - Đăng ký lần đầu ngày 08/09/2014 tại Sở Kế hoạch và Đầu tư Thành phố Hà Nội</p>
-                <p>Địa chỉ trụ sở: Tầng 3, số 595, đường Giải Phóng, phường Giáp Bát, quận Hoàng Mai, thành phố Hà Nội</p>
+                <p>Giấy chứng nhận ĐKKD số: 0106633482 - Đăng ký lần đầu ngày 13/08/2024 tại Sở Kế hoạch và Đầu tư Thành phố Hà Nội</p>
+                <p>Địa chỉ trụ sở: Số 18, phố Viên, phường Đức Thắng, quận Bắc Từ Liêm, thành phố Hà Nội</p>
                 <p>Hotline: 1900 636807 / 0934632682</p>
-                <p>Email: mkt@cinemas.vn</p>
+                <p>Email: abc@cinemas.vn</p>
                 <h4>Liên hệ hợp tác kinh doanh:</h4>
                 <p>Hotline: 1800 646 420</p>
-                <p>Email: bachtx@group.vn</p>
+                <p>Email: abc@group.vn</p>
             </div>
         </div>
     </div>

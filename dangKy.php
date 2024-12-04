@@ -12,9 +12,8 @@
         $sdt = $_POST['sdt'];
     
         // Kiểm tra email có tồn tại trong CSDL không
-        $check_email = "SELECT * FROM users WHERE email = ?";
+        $check_email = "SELECT * FROM users WHERE email = '$email'";
         $ktra = $conn->prepare($check_email); //gửi câu lệnh SQL đến CSDL để kiểm tra cú pháp trước khi thực thi
-        $ktra->bind_param("s", $email); //(s: kiểu string), gắn (bind) tham số $email vào vị trí ? trong câu lệnh SQL
         $ktra->execute(); //gửi câu lệnh SQL với giá trị thực tế đến CSDL để thực hiện truy vấn. Nếu thành công, câu lệnh sẽ trả về kết quả.
         $result = $ktra->get_result(); //Lấy kết quả của truy vấn SQL đã thực thi trước đó
 
@@ -27,7 +26,7 @@
         } else {
             // Thêm dữ liệu vào bảng
             $sql = "INSERT INTO users (ho_ten, email, mat_khau, ngay_sinh, gioi_tinh, sdt) 
-            VALUES ('$ho_ten', '$email', '$mat_khau', '$ngay_sinh', '$gioi_tinh', '$sdt')";
+                    VALUES ('$ho_ten', '$email', '$mat_khau', '$ngay_sinh', '$gioi_tinh', '$sdt')";
             if ($conn->query($sql) === true) {
                 $_SESSION['ho_ten'] = $ho_ten;
                 $_SESSION['users'] = ['ho_ten' => $ho_ten, 
@@ -36,7 +35,7 @@
                                     'gioi_tinh' => $gioi_tinh, 
                                     'sdt' => $sdt ]; 
                 //Lưu thông tin người dùng
-                echo'<script>alert("Bạn đã đăng ký thành công!");
+                echo '<script>alert("Bạn đã đăng ký thành công!");
                         window.location.href = "navbar_after.php";</script>';
             } else {
                 $_SESSION['ERR'] = "Lỗi đăng ký! Vui lòng thử lại sau!";
