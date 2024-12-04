@@ -1,6 +1,6 @@
 <?php
     //Liên kết với CSDL
-
+    include("navbar.php");
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $ho_ten = $_POST['ho_ten'];
         $email = $_POST['email'];
@@ -191,10 +191,6 @@
 </head>
 
 <body>
-    <?php
-        include("navbar.php");
-    ?>
-
     <!-- Tab Đăng ký -->
     <div class="login_sign-up">
         <div class="button_sign-up">ĐĂNG KÝ</div>
