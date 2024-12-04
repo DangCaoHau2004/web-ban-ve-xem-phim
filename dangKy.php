@@ -1,6 +1,6 @@
 <?php
     //Liên kết với CSDL
-    include("database.php");
+    include("navbar.php");
 
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $ho_ten = $_POST['ho_ten'];
@@ -39,9 +39,7 @@
                 echo'<script>alert("Bạn đã đăng ký thành công!");
                         window.location.href = "navbar_after.php";</script>';
             } else {
-                $_SESSION['ERR'] = "Lỗi đăng ký! Vui lòng thử lại sau!";
-                header("Location: ERR404.php");
-                exit(); //Kết thúc lệnh sau khi chuyển hướng
+                echo '<script>alert("Lỗi đăng ký! ' . $conn->error . '");</script>';
             }
             $conn->close();
         }
@@ -195,10 +193,6 @@
 </head>
 
 <body>
-    <?php
-        include("navbar.php");
-    ?>
-
     <!-- Tab Đăng ký -->
     <div class="login_sign-up">
         <div class="button_sign-up">ĐĂNG KÝ</div>
