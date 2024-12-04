@@ -64,8 +64,8 @@ include("database.php");
   <body>
     <div class="log_res">
       <div class="margin_log_res">
-        <?php if (isset($_SESSION['ho_ten'])): ?>
-          <a href="information.php">Xin chào: <?php echo $_SESSION['ho_ten']; ?></a>
+        <?php if (isset($_SESSION['users']['ho_ten'])): ?>
+          <a href="information.php">Xin chào: <?php echo $_SESSION['users']['ho_ten']; ?></a>
           <a href="logout.php"><i style="margin-left: 15px; margin-top:4px" class="fa-solid fa-right-from-bracket"></i></a>
         <?php else: ?>
           <a href="login.php">Đăng nhập</a>
