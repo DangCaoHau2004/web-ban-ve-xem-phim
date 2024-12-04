@@ -30,12 +30,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['login'])) {
 
     if (mysqli_num_rows($result) == 1) {
         $row = mysqli_fetch_assoc($result);
-        if ($row['email'] === $email && $row['mat_khau'] === $password) { // kiểm tra đúng mật khẩu và email 
-            $_SESSION['user_id'] = $row['id']; // lưu phiên id của người dùng
-            $_SESSION['ho_ten'] = $row['ho_ten']; // Lưu tên người dùng vào session
+        if ($row['email'] === $email && $row['mat_khau'] === $password) {
+            $_SESSION['user_id'] = $row['id'];
+            // Thêm đoạn mã này để lưu thông tin người dùng vào session
+            $_SESSION['users'] = [
+                'ho_ten' => $row['ho_ten'],
+                'ngay_sinh' => $row['ngay_sinh'],
+                'gioi_tinh' => $row['gioi_tinh'],
+                'sdt' => $row['sdt'],
+                'email' => $row['email']
+            ];
             header("Location: index.php"); // Chuyển hướng về trang chủ nếu thành công
             exit();
         }
+        
     } else {
         // Nếu đăng nhập khi ghi sai mật khẩu và email
         $_SESSION['ERR'] = "Sai email hoặc mật khẩu | Incorrect email or password"; // lưu error vào session
