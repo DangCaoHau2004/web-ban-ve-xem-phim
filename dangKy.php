@@ -37,9 +37,11 @@
                                     'sdt' => $sdt ]; 
                 //Lưu thông tin người dùng
                 echo'<script>alert("Bạn đã đăng ký thành công!");
-                        window.location.href = "main_after.php";</script>';
+                        window.location.href = "navbar_after.php";</script>';
             } else {
-                echo '<script>alert("Lỗi: ");</script>' . $conn->error;
+                $_SESSION['ERR'] = "Lỗi đăng ký! Vui lòng thử lại sau!";
+                header("Location: ERR404.php");
+                exit(); //Kết thúc lệnh sau khi chuyển hướng
             }
             $conn->close();
         }
@@ -193,6 +195,10 @@
 </head>
 
 <body>
+    <?php
+        include("navbar.php");
+    ?>
+
     <!-- Tab Đăng ký -->
     <div class="login_sign-up">
         <div class="button_sign-up">ĐĂNG KÝ</div>
@@ -299,7 +305,7 @@
     </div>
 
     <?php
-        include("info.php");
+        include("foot.php");
     ?>
 </body>
 </html>

@@ -36,8 +36,8 @@ if (!isset($_SESSION['selectedSeats']) || !isset($_SESSION['id_lich_chieu'])) {
     $_SESSION["ERR"] = "Bạn chưa đặt ghế!";
     header("Location: ERR404.php");
 } else {
-    //id user
-    $id_user = 1;
+    //Cần điền id của user trong phiên
+    $id = 1;
 ?>
 
     <!DOCTYPE html>
@@ -110,7 +110,7 @@ if (!isset($_SESSION['selectedSeats']) || !isset($_SESSION['id_lich_chieu'])) {
 
             <div class="container">
                 <h1 style="color: red; margin: 0;">Bạn lưu ý vui lòng ghi nội dung chuyển khoản là: "<?php
-                                                                                                        echo $id_user . " " . implode(", ", $_SESSION['selectedSeats'])
+                                                                                                        echo $id . " " . implode(", ", $_SESSION['selectedSeats'])
                                                                                                             . " " . $_SESSION['id_lich_chieu'];
                                                                                                         ?>" </h1>
                 <img src="./img/qr.jpg" alt="QR Code">

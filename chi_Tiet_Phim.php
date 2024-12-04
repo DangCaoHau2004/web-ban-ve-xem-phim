@@ -10,7 +10,6 @@ $chi_tiet_phim = [
   "link_img" => $results["link_img"],
   "mo_ta" => $results["mo_ta"],
   "ngon_ngu" => $results["ngon_ngu"],
-
 ]
 ?>
 <!DOCTYPE html>

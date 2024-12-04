@@ -15,29 +15,20 @@
 
 
 
-        .main {
-
-            width: 100%;
-            height: 1981px;
-        }
-
-
-
-
-
 
 
         .slide-container {
             position: relative;
             width: 100%;
-            height: 550px;
+            height: 510px;
 
             /* box-shadow: 0 0 8px 2px rgba(0, 0, 0, 0.2); */
         }
 
         .slide-container .slides {
             width: 100%;
-            height: calc(100% - 40px);
+            height: 100%;
+
             position: relative;
             overflow: hidden;
         }
@@ -91,7 +82,7 @@
 
         .dotsContainer {
             position: absolute;
-            bottom: 50px;
+            bottom: 20px;
             z-index: 3;
             left: 50%;
             transform: translateX(-50%);
@@ -263,7 +254,7 @@
     </div>
     <!-- footer -->
     <?php
-    include("info.php");
+    include("foot.php");
     ?>
 
 </body>

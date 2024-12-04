@@ -16,7 +16,7 @@
 
         /* Style cho khung của tab Thông tin */
         .frame_info {
-            margin: 50px;
+            margin-top: 50px;
             display: flex;
             justify-content: space-between;
             background-color: #f9f9f9;
@@ -79,6 +79,7 @@
             width: 80px;
         }
     </style>
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
 </head>
 
@@ -87,7 +88,7 @@
     <div class="frame_info">
         <!-- Ảnh logo -->
         <div class="item_info">
-            <a href=""><img src="./img/logo.png" alt="Beta Cinemas Logo" class="logo"></a>
+            <img src="./img/logo.png" alt="Beta Cinemas Logo" class="logo">
         </div>
 
         <div class="item_info">

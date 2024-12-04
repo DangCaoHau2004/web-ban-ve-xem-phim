@@ -39,7 +39,7 @@
         background-color: white;
         height: 11vh;
       }
-      .logo a {
+      .nav_bar_logo a {
         display: flex;
         height: 12vh;
         margin-left: 100px;
@@ -66,12 +66,12 @@
     <div class="log_res">
       <div class="margin_log_res">
         <a href="information.php">Xin chào: <?php echo $_SESSION['ho_ten'] ?? 'Khách'; ?></a>
-        <a href="main.php"><i style="margin-left: 15px; margin-top:4px" class="fa-solid fa-right-from-bracket"></i></a>
+        <a href="navbar.php"><i style="margin-left: 15px; margin-top:4px" class="fa-solid fa-right-from-bracket"></i></a>
       </div>
     </div>
     <div class="nav_bar">
-      <div class="logo">
-        <a href="main_after.php"><img src="./img/logo.png" alt="logo" /></a>
+      <div class="nav_bar_logo">
+        <a href="navbar_after.php"><img src="./img/logo.png" alt="logo" /></a>
       </div>
       <div class="movies">
         <a href="">PHIM</a>
