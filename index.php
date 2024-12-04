@@ -147,7 +147,9 @@
 
 <body>
     <!-- navbar -->
-    <div class="navbar"></div>
+    <?php
+        include("navbar.php");
+    ?>
     <!-- main -->
     <div class="main">
         <!-- slide -->

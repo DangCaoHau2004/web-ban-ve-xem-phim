@@ -1,5 +1,9 @@
 <?php
     //Liên kết với CSDL
+    include("navbar.php");
+
+    $alertMessage = ""; // Khởi tạo biến để chứa thông báo alert
+    $redirectScript = ""; // Biến chứa script chuyển hướng
 
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $ho_ten = $_POST['ho_ten'];
@@ -17,11 +21,11 @@
         $result = $ktra->get_result(); //Lấy kết quả của truy vấn SQL đã thực thi trước đó
 
         if ($result->num_rows > 0) {
-            echo'<script>alert("Email này đã được sử dụng. Vui lòng thử email khác!");</script>';
+            $alertMessage = "Email này đã được sử dụng. Vui lòng thử email khác!";
         }
         // Kiểm tra sự trùng khớp của mật khẩu
         elseif($mat_khau !== $reup_mat_khau) {
-            echo'<script>alert("Mật khẩu bạn nhập không khớp. Vui lòng xem lại!");</script>';
+            $alertMessage = "Mật khẩu bạn nhập không khớp. Vui lòng xem lại!";
         } else {
             // Thêm dữ liệu vào bảng
             $sql = "INSERT INTO users (ho_ten, email, mat_khau, ngay_sinh, gioi_tinh, sdt) 
@@ -34,10 +38,10 @@
                                     'gioi_tinh' => $gioi_tinh, 
                                     'sdt' => $sdt ]; 
                 //Lưu thông tin người dùng
-                echo '<script>alert("Bạn đã đăng ký thành công!");
-                        window.location.href = "navbar.php";</script>';
+                $alertMessage = "Bạn đã đăng ký thành công!";
+                $redirectScript = "window.location.href = 'index.php';";
             } else {
-                echo '<script>alert("Lỗi đăng ký! ' . $conn->error . '");</script>';
+                $alertMessage = "Lỗi đăng ký! " . $conn->error;
             }
             $conn->close();
         }
@@ -191,10 +195,6 @@
 </head>
 
 <body>
-    <?php
-        include("navbar.php");
-    ?>
-
     <!-- Tab Đăng ký -->
     <div class="login_sign-up">
         <div class="button_sign-up">ĐĂNG KÝ</div>
@@ -303,5 +303,15 @@
     <?php
         include("foot.php");
     ?>
+
+    <script>
+        <?php if (!empty($alertMessage)): ?>
+            alert("<?php echo $alertMessage; ?>");
+        <?php endif; ?>
+
+        <?php if (!empty($redirectScript)): ?>
+            <?php echo $redirectScript; ?>
+        <?php endif; ?>
+    </script>
 </body>
 </html>
