@@ -1,6 +1,7 @@
 <?php
 
-include("database.php");
+// include("database.php");
+include('navbar.php');
 
 // session để lưu thông báo lỗi
 if (isset($_SESSION['ERR'])) {
@@ -318,11 +319,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['login'])) {
 </head>
 
 <body>
-
-    <?php
-    include("navbar.php");
-    ?>
-
     <div class="container">
         <div class="tabs">
             <div id="login-tab">ĐĂNG NHẬP</div>

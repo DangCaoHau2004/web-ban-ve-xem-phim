@@ -1,19 +1,3 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Document</title>
-  <link rel="stylesheet" href="information.css" />
-  <link
-    rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
-    integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
-    crossorigin="anonymous"
-    referrerpolicy="no-referrer" />
-</head>
-<body>
-
 <?php
 include "navbar.php";
 // include("database.php");
@@ -69,9 +53,44 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 $conn->close();
 ?>
-
-
-
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Document</title>
+  <link rel="stylesheet" href="information.css"/>
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awaesome/6.6.0/css/all.min.css"
+    integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
+    crossorigin="anonymous"
+    referrerpolicy="no-referrer" />
+  <style>
+    .input{
+      height: 30px;
+      width: 65vh;
+    }
+    #gender {
+      margin-left: 25px;
+      padding-left: 30px;
+      font-size: 18px;
+      height: 31px;
+      width: 70vh;
+    }
+    .left input {
+      padding-left: 35px;
+      margin-left: 25px;
+    }
+    .left i {
+      margin-left: 35px;
+    }
+    .left p {
+      margin-left: 25px;
+    }
+  </style>
+</head>
+<body>
   <form action="information.php" method="post">
     <div class="info">
       <div class="info_text">
@@ -93,6 +112,7 @@ $conn->close();
                   <p><span style="color: red">*</span> Email</p>
                   <i class="fa-solid fa-envelope"></i>
                   <input
+                    readonly
                     class="input"
                     type="text"
                     name="email"

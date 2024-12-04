@@ -56,7 +56,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
   font-size: 19px;
   position: absolute;
   margin: 7px;
-  margin-left: 8px;
+  margin-left: 16px;
 }
 
 .left input {
@@ -67,7 +67,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
   padding-left: 10px;
   font-size: 18px;
   height: 30px;
-  width: 70vh;
+  width: 60vh;
 }
 
 .right {

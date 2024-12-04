@@ -36,7 +36,7 @@
                                     'sdt' => $sdt ]; 
                 //Lưu thông tin người dùng
                 echo '<script>alert("Bạn đã đăng ký thành công!");
-                        window.location.href = "navbar_after.php";</script>';
+                        window.location.href = "navbar.php";</script>';
             } else {
                 echo '<script>alert("Lỗi đăng ký! ' . $conn->error . '");</script>';
             }
