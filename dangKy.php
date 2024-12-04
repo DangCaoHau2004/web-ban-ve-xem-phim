@@ -1,9 +1,5 @@
 <?php
     //Liên kết với CSDL
-    include("navbar.php");
-
-    $alertMessage = ""; // Khởi tạo biến để chứa thông báo alert
-    $redirectScript = ""; // Biến chứa script chuyển hướng
 
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $ho_ten = $_POST['ho_ten'];
@@ -195,6 +191,10 @@
 </head>
 
 <body>
+    <?php
+        include("navbar.php");
+    ?>
+
     <!-- Tab Đăng ký -->
     <div class="login_sign-up">
         <div class="button_sign-up">ĐĂNG KÝ</div>

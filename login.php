@@ -1,5 +1,4 @@
 <?php
-
 // include("database.php");
 include('navbar.php');
 
@@ -33,6 +32,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['login'])) {
         $row = mysqli_fetch_assoc($result);
         if ($row['email'] === $email && $row['mat_khau'] === $password) { // kiểm tra đúng mật khẩu và email 
             $_SESSION['user_id'] = $row['id']; // lưu phiên id của người dùng
+            $_SESSION['ho_ten'] = $row['ho_ten']; // Lưu tên người dùng vào session
             header("Location: index.php"); // Chuyển hướng về trang chủ nếu thành công
             exit();
         }
@@ -43,11 +43,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['login'])) {
         exit();
     }
 }
-
 ?>
-
-
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -317,12 +313,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['login'])) {
         }
     </style>
 </head>
-
 <body>
     <div class="container">
         <div class="tabs">
             <div id="login-tab">ĐĂNG NHẬP</div>
-
         </div>
         <div class="tab-container">
             <form name="form1" method="POST" onsubmit=" return validation()">
