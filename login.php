@@ -3,50 +3,37 @@
 include('navbar.php');
 
 // session để lưu thông báo lỗi
-if (isset($_SESSION['ERR'])) {
-    $error = $_SESSION['ERR'];  // biến error lưu session error
-    unset($_SESSION['ERR']); // xóa biến session
+if (isset($_SESSION['thong_bao'])) {
+    $error = $_SESSION['thong_bao'];  // biến error lưu session thông báo
+    unset($_SESSION['thong_bao']); // xóa biến session
 } else {
     $error = "";
 }
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['login'])) {
-
-    // Hàm validate để làm sạch dữ liệu
-    function validate($data)
-    {
-        $data = trim($data);
-        $data = stripslashes($data);
-        $data = htmlspecialchars($data);
-        return $data;
-    }
-
-    $email = validate($_POST['email']);
-    $password = validate($_POST['password']);
+if (isset($_POST['email']) && isset($_POST['password'])) {
+    $email = $_POST['email'];
+    $password = $_POST['password'];
 
     // Kiểm tra email và password trong cơ sở dữ liệu
     $sql = "SELECT * FROM users WHERE email = '$email' AND mat_khau = '$password'";
     $result = mysqli_query($conn, $sql);
 
-    if (mysqli_num_rows($result) == 1) {
+    if (mysqli_num_rows($result) > 0) {
         $row = mysqli_fetch_assoc($result);
-        if ($row['email'] === $email && $row['mat_khau'] === $password) {
-            $_SESSION['user_id'] = $row['id'];
-            // Thêm đoạn mã này để lưu thông tin người dùng vào session
-            $_SESSION['users'] = [
-                'ho_ten' => $row['ho_ten'],
-                'ngay_sinh' => $row['ngay_sinh'],
-                'gioi_tinh' => $row['gioi_tinh'],
-                'sdt' => $row['sdt'],
-                'email' => $row['email']
-            ];
-            header("Location: index.php"); // Chuyển hướng về trang chủ nếu thành công
-            exit();
-        }
-        
+        $_SESSION['user_id'] = $row['id'];
+        // Thêm đoạn mã này để lưu thông tin người dùng vào session
+        $_SESSION['users'] = [
+            'ho_ten' => $row['ho_ten'],
+            'ngay_sinh' => $row['ngay_sinh'],
+            'gioi_tinh' => $row['gioi_tinh'],
+            'sdt' => $row['sdt'],
+            'email' => $row['email']
+        ];
+        header("Location: index.php"); // Chuyển hướng về trang chủ nếu thành công
+        exit();
     } else {
         // Nếu đăng nhập khi ghi sai mật khẩu và email
-        $_SESSION['ERR'] = "Sai email hoặc mật khẩu | Incorrect email or password"; // lưu error vào session
+        $_SESSION['thong_bao'] = "Sai email hoặc mật khẩu | Incorrect email or password"; // lưu thông báo vào session
         header("Location: " . $_SERVER['PHP_SELF']); // Chuyển hướng lại trang hiện tại
         exit();
     }
@@ -321,6 +308,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['login'])) {
         }
     </style>
 </head>
+
 <body>
     <div class="container">
         <div class="tabs">
