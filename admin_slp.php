@@ -269,10 +269,55 @@ if (isset($_SESSION["user_id"])) {
                     border: none;
                     cursor: pointer;
                 }
+
+                table button:hover {
+                    cursor: pointer;
+                }
+
+                table {
+                    margin-bottom: 100px;
+                }
+
+                table,
+                th,
+                td {
+                    border: 1px solid black;
+                    border-collapse: collapse;
+                }
+
+                th,
+                td {
+                    padding: 10px;
+                }
+
+                input {
+                    border: 0;
+                }
+
+                table button {
+                    width: 100%;
+                    margin: 0;
+                    padding: 0;
+                    border: 0;
+                    background-color: transparent;
+                }
+
+                table button:hover {
+                    cursor: pointer;
+                }
             </style>
         </head>
 
         <body>
+            <?php if (isset($_SESSION["thong_bao"])) { ?>
+                <script>
+                    alert('<?php echo $_SESSION["thong_bao"]; ?>');
+                </script>
+                <?php unset($_SESSION["thong_bao"]);
+                ?>
+            <?php } ?>
+            <a href="./index.php" style="margin-bottom: 20px;">Trang chủ</a>
+
             <div style="margin-bottom: 20px;">
                 <button style="background-color: blueviolet; border: 0; padding: 5px;">
                     <a href="./admin_sp.php" style="text-decoration: none; color: white;">Sửa phim</a>
@@ -281,13 +326,7 @@ if (isset($_SESSION["user_id"])) {
                     <a href="./admin_xn.php" style="text-decoration: none; color: white;">Xác nhận</a>
                 </button>
             </div>
-            <?php if (isset($_SESSION["thong_bao"])) { ?>
-                <script>
-                    alert('<?php echo $_SESSION["thong_bao"]; ?>');
-                </script>
-                <?php unset($_SESSION["thong_bao"]);
-                ?>
-            <?php } ?>
+
             <button id="them_lich_chieu">Điền thêm lịch chiếu</button>
             <form action="" method="post" class="form_tlc hidden">
                 <label for="id_phim">Id phim</label>

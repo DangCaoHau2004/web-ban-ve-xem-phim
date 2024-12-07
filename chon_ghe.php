@@ -1,5 +1,6 @@
 <?php
-include("database.php");
+include("navbar.php");
+
 if (isset($_GET["id_lich_chieu"])) {
 
     $id_lich_chieu = $_GET["id_lich_chieu"];
@@ -232,7 +233,6 @@ if (isset($_GET["id_lich_chieu"])) {
             </style>
 
         <body>
-            <?php include("navbar.php") ?>
             <div class="body-page">
                 <input type="hidden" class="id_lich_chieu" name="id_lich_chieu" value=<?php echo $id_lich_chieu ?>>
                 <div class="seating-chart">
@@ -344,10 +344,10 @@ if (isset($_GET["id_lich_chieu"])) {
                                 return response.text();
                             })
                             .then((data) => {
-                                location.replace("/BTLWEB/thanh_toan.php");
+                                location.replace("/web-ban-ve-xem-phim/thanh_toan.php");
                             })
                             .catch((error) => {
-                                location.replace("/BTLWEB/ERR404.php");
+                                location.replace("/web-ban-ve-xem-phim/ERR404.php");
                             });
                     } else {
                         alert("Bạn chưa chọn chỗ");

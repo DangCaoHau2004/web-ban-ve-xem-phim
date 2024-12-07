@@ -190,6 +190,38 @@ if (isset($_SESSION["user_id"])) {
                 .hidden {
                     display: none;
                 }
+
+                table button {
+                    width: 100%;
+                    margin: 0;
+                    padding: 0;
+                    border: 0;
+                    background-color: transparent;
+                }
+
+                table button:hover {
+                    cursor: pointer;
+                }
+
+                table {
+                    margin-bottom: 100px;
+                }
+
+                input {
+                    border: 0;
+                }
+
+                table,
+                th,
+                td {
+                    border: 1px solid black;
+                    border-collapse: collapse;
+                }
+
+                th,
+                td {
+                    padding: 5px;
+                }
             </style>
         </head>
 
@@ -201,6 +233,9 @@ if (isset($_SESSION["user_id"])) {
                 <?php unset($_SESSION["thong_bao"]);
                 ?>
             <?php } ?>
+            <a href="./index.php" style="margin-bottom: 20px;">Trang chủ</a>
+
+
             <div>
                 <button style="background-color: blueviolet; border: 0; padding: 5px;">
                     <a href="./admin_sp.php" style="text-decoration: none; color: white;">Sửa phim</a>
@@ -241,7 +276,7 @@ if (isset($_SESSION["user_id"])) {
                             <td><?php echo $cho_da_chon[$i] ?></td>
                             <td>Tổng: <?php echo $gia_ve * count(explode(" ", $cho_da_chon[$i])) ?></td>
                             <td><?php echo $ngay_dat[$i] ?></td>
-                            <td><?php echo $id_user . " " . $cho_da_chon[$i] . " " . $id_lich_chieu[$i] ?></td>
+                            <td><?php echo $id[$i] . " " . $cho_da_chon[$i] . " " . $id_lich_chieu[$i] ?></td>
                             <td><button type="submit" value="xac_nhan" name="btn">Xác nhận</button></td>
                             <td><button type="submit" value="huy" name="btn">Hủy</button></td>
                         </tr>

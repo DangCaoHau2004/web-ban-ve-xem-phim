@@ -168,7 +168,7 @@
         <!-- slide -->
         <div class="slide-container">
             <div class="slides">
-                <img src="./img/1702x621-23-114246-141124-41.jpg" class="active">
+                <img src="https://lumiere-a.akamaihd.net/v1/images/au_moana2_tvspot_45280612.jpeg?region=0,0,1920,1080" class="active">
                 <img src="./img/1702x621-24-162735-201124-55.jpg">
                 <img src="./img/980wx448h_20_.jpg">
                 <img src="./img/z5959426229506-c7d3539d88024f520ccb323596167a36-145928-231024-88.jpg">

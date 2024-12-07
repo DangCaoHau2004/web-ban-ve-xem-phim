@@ -19,8 +19,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
       $_SESSION['users']['sdt'] = $sdt;
       $_SESSION['users']['email'] = $email;
       echo '<script>alert("Cập nhật thông tin thành công!");</script>';
+      header("Location: " . $_SERVER['PHP_SELF']);
+      exit();
     } else {
       echo '<script>alert("Lỗi cập nhật! Vui lòng thử lại sau!");</script>';
+      header("Location: " . $_SERVER['PHP_SELF']);
+      exit();
     }
   }
 
@@ -39,14 +43,22 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $result = mysqli_query($conn, $query);
         if ($result) {
           echo '<script>alert("Mật khẩu cập nhật thành công!");</script>';
+          header("Location: " . $_SERVER['PHP_SELF']);
+          exit();
         } else {
           echo '<script>alert("Lỗi cập nhật mật khẩu! Vui lòng thử lại sau.");</script>';
+          header("Location: " . $_SERVER['PHP_SELF']);
+          exit();
         }
       } else {
         echo '<script>alert("Mật khẩu cũ không trùng khớp!");</script>';
+        header("Location: " . $_SERVER['PHP_SELF']);
+        exit();
       }
     } else {
       echo '<script>alert("Mật khẩu mới không trùng với mật khẩu xác nhận!");</script>';
+      header("Location: " . $_SERVER['PHP_SELF']);
+      exit();
     }
   }
 }
@@ -55,11 +67,12 @@ $conn->close();
 ?>
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Document</title>
-  <link rel="stylesheet" href="information.css"/>
+  <link rel="stylesheet" href="information.css" />
   <link
     rel="stylesheet"
     href="https://cdnjs.cloudflare.com/ajax/libs/font-awaesome/6.6.0/css/all.min.css"
@@ -67,10 +80,11 @@ $conn->close();
     crossorigin="anonymous"
     referrerpolicy="no-referrer" />
   <style>
-    .input{
+    .input {
       height: 30px;
       width: 65vh;
     }
+
     #gender {
       margin-left: 25px;
       padding-left: 30px;
@@ -78,18 +92,22 @@ $conn->close();
       height: 31px;
       width: 70vh;
     }
+
     .left input {
       padding-left: 35px;
       margin-left: 25px;
     }
+
     .left i {
       margin-left: 35px;
     }
+
     .left p {
       margin-left: 25px;
     }
   </style>
 </head>
+
 <body>
   <form action="information.php" method="post">
     <div class="info">
@@ -172,60 +190,61 @@ $conn->close();
 <!-- Modal -->
 <div id="passwordModal" class="modal">
   <div class="modal-content">
-    <div class="modal-header"> 
-      <h2>ĐỔI MẬT KHẨU</h2><span class="close">&times;</span> 
+    <div class="modal-header">
+      <h2>ĐỔI MẬT KHẨU</h2><span class="close">&times;</span>
     </div>
     <hr>
     <form id="passwordForm" class="passwordForm" method="post" action="information.php">
-    <div class="form-row"> 
-      <label for="currentPassword">Mật khẩu hiện tại<span style="color: red">*</span></label> 
-      <input type="password" id="currentPassword" name="currentPassword" required placeholder="Nhập mật khẩu hiện tại"> 
-    </div> 
-    <div class="form-row"> 
-      <label for="newPassword">Mật khẩu mới<span style="color: red">*</span></label> 
-      <input type="password" id="newPassword" name="newPassword" required placeholder="Nhập mật khẩu mới"> 
-    </div> 
-    <div class="form-row"> 
-      <label for="confirmPassword">Xác nhận mật khẩu mới<span style="color: red">*</span></label> 
-      <input type="password" id="confirmPassword" name="confirmPassword" required placeholder="Nhập xác nhận mật khẩu mới"> 
-    </div> 
-    <div class="submit-row"> 
-      <input type="submit" value="CẬP NHẬT" name="update"> 
-    </div>
+      <div class="form-row">
+        <label for="currentPassword">Mật khẩu hiện tại<span style="color: red">*</span></label>
+        <input type="password" id="currentPassword" name="currentPassword" required placeholder="Nhập mật khẩu hiện tại">
+      </div>
+      <div class="form-row">
+        <label for="newPassword">Mật khẩu mới<span style="color: red">*</span></label>
+        <input type="password" id="newPassword" name="newPassword" required placeholder="Nhập mật khẩu mới">
+      </div>
+      <div class="form-row">
+        <label for="confirmPassword">Xác nhận mật khẩu mới<span style="color: red">*</span></label>
+        <input type="password" id="confirmPassword" name="confirmPassword" required placeholder="Nhập xác nhận mật khẩu mới">
+      </div>
+      <div class="submit-row">
+        <input type="submit" value="CẬP NHẬT" name="update">
+      </div>
     </form>
   </div>
 </div>
+
 </html>
 <script>
-var modal = document.getElementById("passwordModal");
-var link = document.querySelector(".change_pass a");
-var span = document.getElementsByClassName("close")[0];
+  var modal = document.getElementById("passwordModal");
+  var link = document.querySelector(".change_pass a");
+  var span = document.getElementsByClassName("close")[0];
 
-// Click vào đổi mật khẩu
-link.onclick = function(event) {
-  event.preventDefault(); // Tránh nó tự tắt
-  modal.style.display = "block";
-}
+  // Click vào đổi mật khẩu
+  link.onclick = function(event) {
+    event.preventDefault(); // Tránh nó tự tắt
+    modal.style.display = "block";
+  }
 
-// Click vào dấu x để thoát
-span.onclick = function() {
-  modal.style.display = "none";
-}
-
-// Click ra bên ngoài cũng sẽ thoát
-window.onclick = function(event) {
-  if (event.target == modal) {
+  // Click vào dấu x để thoát
+  span.onclick = function() {
     modal.style.display = "none";
   }
-}
 
-// Cập nhật xong sẽ thoát khỏi giao diện quên mật khẩu
-// document.getElementById("passwordForm").onsubmit = function(event) {
-//   event.preventDefault();
-//   // alert("Password changed successfully!");
-//   modal.style.display = "none";
-// }
+  // Click ra bên ngoài cũng sẽ thoát
+  window.onclick = function(event) {
+    if (event.target == modal) {
+      modal.style.display = "none";
+    }
+  }
+
+  // Cập nhật xong sẽ thoát khỏi giao diện quên mật khẩu
+  // document.getElementById("passwordForm").onsubmit = function(event) {
+  //   event.preventDefault();
+  //   // alert("Password changed successfully!");
+  //   modal.style.display = "none";
+  // }
 </script>
 <?php
-  include("foot.php");
+include("foot.php");
 ?>

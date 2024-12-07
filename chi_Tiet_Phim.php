@@ -1,5 +1,5 @@
 <?php
-$id_phim = 3;
+$id_phim = 1;
 include("database.php");
 $results =  $conn->query("SELECT ten, the_loai, thoi_luong, link_img, mo_ta, ngon_ngu FROM phim WHERE id_phim = " . $id_phim);
 $results = $results->fetch_all(MYSQLI_ASSOC)[0];
@@ -49,7 +49,7 @@ $chi_tiet_phim = [
 
     .movie-poster img {
       width: 300px;
-      height: 100%;
+      height: auto;
       border-radius: 8px;
     }
 

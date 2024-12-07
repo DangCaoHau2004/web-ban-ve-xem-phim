@@ -105,7 +105,8 @@ if (isset($_SESSION["user_id"])) {
                 "thoi_luong" => $result["thoi_luong"],
                 "link_img" => $result["link_img"],
                 "mo_ta" => $result["mo_ta"],
-                "ngon_ngu" => $result["ngon_ngu"]
+                "ngon_ngu" => $result["ngon_ngu"],
+                "img_background" => $result["img_background"],
             ]);
         }
 ?>
@@ -139,6 +140,38 @@ if (isset($_SESSION["user_id"])) {
                 .hidden {
                     display: none;
                 }
+
+                input {
+                    border: 0;
+                }
+
+                table button {
+                    width: 100%;
+                    margin: 0;
+                    padding: 0;
+                    border: 0;
+                    background-color: transparent;
+                }
+
+                table button:hover {
+                    cursor: pointer;
+                }
+
+                table {
+                    margin-bottom: 100px;
+                }
+
+                table,
+                th,
+                td {
+                    border: 1px solid black;
+                    border-collapse: collapse;
+                }
+
+                th,
+                td {
+                    padding: 5px;
+                }
             </style>
         </head>
 
@@ -150,6 +183,9 @@ if (isset($_SESSION["user_id"])) {
                 <?php unset($_SESSION["thong_bao"]);
                 ?>
             <?php } ?>
+            <a href="./index.php" style="margin-bottom: 20px;">Trang chủ</a>
+
+
 
             <div style="margin-bottom: 20px;">
                 <button style="background-color: blueviolet; border: 0; padding: 5px;">
@@ -186,19 +222,21 @@ if (isset($_SESSION["user_id"])) {
                     <td>Link img</td>
                     <td>Mô tả</td>
                     <td>Ngôn ngữ</td>
+                    <td>Img background</td>
                     <td>Sửa phim</td>
                     <td>Xóa phim</td>
                 </tr>
                 <?php foreach ($ds_phim as $ds_p) { ?>
                     <form action="" method="post">
                         <tr>
-                            <td><input type="text" readonly name="id_phim" value="<?php echo $ds_p["id_phim"]; ?>" required></td>
+                            <td><input type="text" readonly name="id_phim" value="<?php echo $ds_p["id_phim"]; ?>" required style="width: 20px;"></td>
                             <td><input type="text" name="ten" value="<?php echo $ds_p["ten"]; ?>" required></td>
                             <td><input type="text" name="the_loai" value="<?php echo $ds_p["the_loai"]; ?>" required></td>
                             <td><input type="text" name="thoi_luong" value="<?php echo $ds_p["thoi_luong"]; ?>" required></td>
                             <td><input type="text" name="link_img" value="<?php echo $ds_p["link_img"]; ?>" required></td>
                             <td><input type="text" name="mo_ta" value="<?php echo $ds_p["mo_ta"]; ?>" required></td>
                             <td><input type="text" name="ngon_ngu" value="<?php echo $ds_p["ngon_ngu"]; ?>" required></td>
+                            <td><input type="text" name="img_background" value="<?php echo $ds_p["img_background"]; ?>"></td>
                             <td><button type="submit" name="sua_phim" value="sua">Sửa</button></td>
                             <td><button type="submit" name="sua_phim" value="xoa">Xóa</button></td>
                         </tr>
