@@ -49,7 +49,9 @@ include("database.php");
       height: 12vh;
       margin-left: 100px;
     }
-
+    .movies a:hover {
+      color: #337ab7;
+    }
     .movies a {
       color: black;
       font-size: 20px;
@@ -66,6 +68,9 @@ include("database.php");
       text-decoration: none;
       display: flex;
       font-weight: bold;
+    }
+    .info_discounts a:hover {
+      color: #337ab7;
     }
   </style>
 </head>

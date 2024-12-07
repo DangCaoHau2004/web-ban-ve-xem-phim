@@ -107,7 +107,6 @@ $conn->close();
     }
   </style>
 </head>
-
 <body>
   <form action="information.php" method="post">
     <div class="info">
