@@ -78,7 +78,7 @@ VALUES
  'https://files.betacorp.vn/media%2fimages%2f2024%2f10%2f23%2f011124%2Dthan%2Dduoc%2D150349%2D231024%2D98.png', 
  'Elizabeth Sparkle, minh tinh sở hữu vẻ đẹp hút hồn cùng với tài năng được mến mộ nồng nhiệt. Khi đã trải qua một thời kỳ đỉnh cao, nhan sắc dần tàn phai, cô tìm đến những kẻ buôn lậu để mua 1 loại thuốc bí hiểm nhằm “thay da đổi vận”, tạo ra một phiên bản trẻ trung hơn của chính mình.', 
  'Tiếng Anh', 
- 'https://scontent.fhan14-1.fna.fbcdn.net/v/t39.30808-6/465176921_952951716866616_5992433273268537_n.png?stp=dst-jpg_tt6&_nc_cat=101&ccb=1-7&_nc_sid=86c6b0&_nc_eui2=AeHcgI_9LBRtpKN_6DR-bBdUcI8jjnAOkWxwjyOOcA6RbNw7ydzZ8YZKR-1Mry0u1EHdDebEku8Viy43qn5X0ZGR&_nc_ohc=ufsbEm_UnEkQ7kNvgGdeUu6&_nc_zt=23&_nc_ht=scontent.fhan14-1.fna&_nc_gid=Ak4rmFvAfBO5sef_5POAeqC&oh=00_AYCian_VE0--D8GRCJIkKj6rZQCpAQsxu3xMs7X9qJrKkw&oe=6759676B'),
+ 'https://i.ytimg.com/vi/77n-Tmes9s8/maxresdefault.jpg'),
 
 ('Chúa Tể Của Những Chiếc Nhẫn: Cuộc Chiến Của Rohirrim', 'Hành động, Phiêu lưu', 135, 
  'https://files.betacorp.vn/media%2fimages%2f2024%2f10%2f21%2fscreenshot%2D2024%2D10%2D21%2D140406%2D140455%2D211024%2D18.png', 

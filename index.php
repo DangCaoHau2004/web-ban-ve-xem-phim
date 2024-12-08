@@ -16,7 +16,7 @@
         .slide-container {
             position: relative;
             width: 100%;
-            height: 510px;
+            height: 585px;
         }
 
         .slide-container .slides {
@@ -35,7 +35,7 @@
         }
 
         /* css cho slide không được active(slide chưa được hiển thị) */
-        /* để  */
+        /* để ẩn các ảnh chưa được hiển thị trong slide */
         .slide-container .slides img:not(.active) {
             top: 0;
             left: -100%;
@@ -102,6 +102,7 @@
         }
 
         /* hiệu ứng chuyển ảnh */
+        /* khi ảnh được bấm nút next và auto slide next  */
         /* Đẩy hình hiện tại sang trái */
         @keyframes next1 {
             from {
@@ -115,8 +116,8 @@
             }
         }
 
-        /* khi ảnh được bấm nút next và auto slide next sang phải thì */
-        /* Kéo hình tiếp theo vào từ phải */
+
+        /* Kéo hình tiếp theo vào từ phải vào thay thế next 1 */
         @keyframes next2 {
             from {
                 /* ảnh từ  bên phải  */
@@ -129,7 +130,7 @@
             }
         }
 
-        /* khi ảnh được bấm nút prev và auto slide prev sang trái thì */
+        /* khi ảnh được bấm nút prev và auto slide prev */
         /* Đẩy hình hiện tại sang phải */
         @keyframes prev1 {
             from {
@@ -143,7 +144,7 @@
             }
         }
 
-        /* Kéo hình trước đó vào từ trái */
+        /* Kéo hình tiếp theo vào từ trái */
         @keyframes prev2 {
             from {
                 /* ảnh ở bên trái ngoài khung hình */
@@ -168,11 +169,17 @@
         <!-- slide -->
         <div class="slide-container">
             <div class="slides">
-                <img src="https://lumiere-a.akamaihd.net/v1/images/au_moana2_tvspot_45280612.jpeg?region=0,0,1920,1080" class="active">
-                <img src="./img/1702x621-24-162735-201124-55.jpg">
-                <img src="./img/980wx448h_20_.jpg">
-                <img src="./img/z5959426229506-c7d3539d88024f520ccb323596167a36-145928-231024-88.jpg">
-                <img src="./img/gladiator-2048_1730878996598.jpg">
+                <?php
+                $sql = "SELECT img_background FROM phim";
+                $result = mysqli_query($conn, $sql);
+                $addActive = false; //biến gán class active cho ảnh đầu tiên
+                while ($row = $result->fetch_assoc()) {
+                    $imgSrc = $row["img_background"];
+                    echo '<img src="' . $imgSrc . '" ' . (!$addActive ? 'class="active"' : '') . '>'; //ktra addactive false để gắn class active cho ảnh đầu
+                    $addActive = true; // gắn addactive lại true để tất cả ảnh sau (ko phải ảnh đầu) ko có class active
+                }
+
+                ?>
             </div>
 
             <div class="buttons">
@@ -223,13 +230,13 @@
 
         // Hàm xử lý lắng nghe click nút Next (nút bên phải)
         next.addEventListener('click', () => {
-            stopSliding(); // Dừng autosliding
-            slideNext(); // hàm chuyển slide tiếp 
-            restartSliding(); // Khởi động lại autosliding
+            stopSliding();
+            slideNext();
+            restartSliding();
         });
-        // hàm chuyển slide tiếp 
+        // hàm chuyển slide tiếp từ phải sang trái 
         function slideNext() {
-            slideImages[counter].style.animation = 'next1 0.5s ease-in forwards';
+            slideImages[counter].style.animation = 'next1 0.5s ease-in forwards'; // thêm animation
             if (counter >= slideImages.length - 1) {
                 counter = 0;
             } else {
@@ -237,16 +244,16 @@
             }
             slideImages[counter].style.animation = 'next2 0.5s ease-in forwards';
 
-            indicators(); // Cập nhật nút chấm dots
+            indicators(); // gọi để cập nhật nút chấm dots
         }
 
-        //Hàm xử lý lắng nghe click nút Next (nút bên trái)
+        //Hàm xử lý lắng nghe click nút prev (nút bên trái)
         prev.addEventListener('click', () => {
             stopSliding();
             slidePrev();
-            restartSliding(); // Khởi động lại autosliding
+            restartSliding();
         });
-
+        // hàm chuyển slide tiếp từ trái sang phải
         function slidePrev() {
             slideImages[counter].style.animation = 'prev1 0.5s ease-in forwards';
             if (counter == 0) {
@@ -260,17 +267,17 @@
 
         // hàm Thêm và xóa lớp 'active' từ các chấm (dots)
         function indicators() {
-            for (let i = 0; i < dots.length; i++) { // lặp qua các dots
-                dots[i].className = dots[i].className.replace(' active', ''); // Loại bỏ lớp 'active' khỏi tất cả các chấm
+            for (let i = 0; i < dots.length; i++) {
+                dots[i].className = dots[i].className.replace(' active', ''); // Loại bỏ lớp 'active' khỏi chấm
             }
             dots[counter].className += ' active'; // Thêm lớp 'active' cho chấm tương ứng với slide hiện tại
         }
 
         // Hàm xử lý khi người dùng nhấn vào nút chấm dưới ảnh
         function switchImage(currentImage) {
-            stopSliding(); // Dừng autosliding ko cho tự động chuyển slide
-            let imageId = parseInt(currentImage.getAttribute('attr'));
-            if (imageId > counter) {
+            stopSliding();
+            let imageId = parseInt(currentImage.getAttribute('attr')); //  lấy attribute của trong dot
+            if (imageId > counter) { //nếu bấm nút chấm không đúng với slide hiện tại thì di chuyển slide vào đúng nút chấm đấy
                 slideImages[counter].style.animation = 'next1 0.5s ease-in forwards';
                 counter = imageId; // cập nhật slide hiện tại đúng với chấm được bấm vào
                 slideImages[counter].style.animation = 'next2 0.5s ease-in forwards';
@@ -278,13 +285,13 @@
                 return
             } else { //nếu bấm nút chấm không đúng với slide hiện tại  thì di chuyển slide vào đúng nút chấm đấy
                 slideImages[counter].style.animation = 'prev1 0.5s ease-in forwards';
-                counter = imageId;
+                counter = imageId; // cập nhật slide hiện tại đúng với chấm được bấm vào
                 slideImages[counter].style.animation = 'prev2 0.5s ease-in forwards';
 
             }
 
             indicators(); // Cập nhật nút chấm dots
-            restartSliding(); // Khởi động lại autosliding cho tự động chuyển slide lại
+            restartSliding();
         }
 
         // Gọi hàm autoSliding 
@@ -293,3 +300,6 @@
 </body>
 
 </html>
+<?php
+$conn->close();
+?>

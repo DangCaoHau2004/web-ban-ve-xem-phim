@@ -1,5 +1,5 @@
 <?php
-// include("database.php");
+
 include('navbar.php');
 
 // session để lưu thông báo lỗi
@@ -13,11 +13,8 @@ if (isset($_SESSION['thong_bao'])) {
 if (isset($_POST['email']) && isset($_POST['password'])) {
     $email = $_POST['email'];
     $password = $_POST['password'];
-
-    // Kiểm tra email và password trong cơ sở dữ liệu
     $sql = "SELECT * FROM users WHERE email = '$email' AND mat_khau = '$password'";
     $result = mysqli_query($conn, $sql);
-
     if (mysqli_num_rows($result) > 0) {
         $row = mysqli_fetch_assoc($result);
         $_SESSION['user_id'] = $row['id'];
@@ -337,9 +334,9 @@ if (isset($_POST['email']) && isset($_POST['password'])) {
 
                 </div>
 
-                <div class="form-group ">
+                <!-- <div class="form-group ">
                     <span href="#" class="forgot-password js-buy-ticket">Quên mật khẩu?</span>
-                </div>
+                </div> -->
 
                 <div class="login-button"><button type="submit" name="login" class="btn">ĐĂNG NHẬP BẰNG TÀI KHOẢN</button>
                 </div>
