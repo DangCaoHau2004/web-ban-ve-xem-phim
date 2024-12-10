@@ -27,7 +27,7 @@
             $sql = "INSERT INTO users (ho_ten, email, mat_khau, ngay_sinh, gioi_tinh, sdt) 
                     VALUES ('$ho_ten', '$email', '$mat_khau', '$ngay_sinh', '$gioi_tinh', '$sdt')";
             if ($conn->query($sql) === true) {
-                $_SESSION['id'] = $id;
+                $_SESSION['user_id'] = $row['id'];
                 $_SESSION['ho_ten'] = $ho_ten;
                 $_SESSION['users'] = ['ho_ten' => $ho_ten, 
                                     'email' => $email, 
@@ -40,13 +40,12 @@
             } else {
                 $alertMessage = "Lỗi đăng ký! " . $conn->error;
             }
-
-            //Ngăn không cho người dùng truy cập lại trang đăng ký sau khi đăng ký thành công
-            if (isset($_SESSION['id'])) {
-                header("Location: index.php");
-            }
-            $conn->close();
         }
+    }
+
+    //Ngăn không cho người dùng truy cập lại trang đăng ký sau khi đăng ký thành công
+    if (isset($_SESSION['user_id'])) {
+        header("Location: index.php");
     }
 ?>
 <!DOCTYPE html>
