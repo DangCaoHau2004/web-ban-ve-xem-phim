@@ -41,6 +41,7 @@
                 $alertMessage = "Lỗi đăng ký! " . $conn->error;
             }
         }
+        $conn->close();
     }
 
     //Ngăn không cho người dùng truy cập lại trang đăng ký sau khi đăng ký thành công
