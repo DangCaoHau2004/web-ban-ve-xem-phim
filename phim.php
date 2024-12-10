@@ -1,6 +1,6 @@
 <?php
 $id_phim = 1;
-include("database.php");
+include("navbar.php");
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -8,8 +8,7 @@ include("database.php");
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cinemar - Danh Sách Phim</title>
-
+    <title>Document</title>
     <style>
         /* Cấu trúc cơ bản */
         body {
@@ -97,7 +96,6 @@ include("database.php");
 
 <body>
 
-
     <section id="movie-list" class="movie-list">
         <!-- Danh sách phim sẽ được JavaScript điền vào đây -->
     </section>
@@ -111,7 +109,6 @@ include("database.php");
             <p><strong>Thể loại:</strong> <span id="movie-genre-detail"></span></p>
             <p><strong>Đánh giá:</strong> <span id="movie-rating-detail"></span></p>
         </div>
-    </div>
 </body>
 
 </html>
