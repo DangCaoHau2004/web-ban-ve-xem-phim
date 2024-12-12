@@ -107,7 +107,7 @@ include("database.php");
       <?php endif; ?>
     </div>
     <div class="movies">
-      <a href="">PHIM</a>
+      <a href="phim.php">PHIM</a>
     </div>
     <div class="infos">
       <a href="./tin_tuc.php">TIN MỚI VÀ ƯU ĐÃI</a>
