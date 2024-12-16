@@ -1,21 +1,20 @@
 <?php
-    include('navbar.php');
-    if (!isset($_SESSION['user_id'])) {
-        echo "User ID không tồn tại. Vui lòng thử lại.";
-        exit();
-    }
-    $user_id = $_SESSION['user_id']; // Lấy user_id từ session
-    $sql = "SELECT * FROM admin_xn WHERE id = '$user_id'";
-    $result = mysqli_query($conn, $sql);
-    if (!$result) {
-        die("Lỗi truy vấn: " . mysqli_error($conn));
-    }
-    function randomTicketCode($length = 8) {
-        return substr(str_shuffle(str_repeat($x='0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ', ceil($length/strlen($x)) )),1,$length);
-    }
+include('navbar.php');
+if (!isset($_SESSION['user_id'])) {
+    echo "User ID không tồn tại. Vui lòng thử lại.";
+    exit();
+}
+$user_id = $_SESSION['user_id']; // Lấy user_id từ session
+$sql = "SELECT * FROM admin_xn WHERE id = '$user_id'";
+$result = mysqli_query($conn, $sql);
+if (!$result) {
+    die("Lỗi truy vấn: " . mysqli_error($conn));
+}
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -28,6 +27,7 @@
             margin-top: 25px;
             margin-right: 15px;
         }
+
         .info_ve_text {
             margin-right: 970px;
             font-weight: bold;
@@ -40,6 +40,7 @@
             color: white;
             background-color: #03599d;
         }
+
         .info_ve_box {
             background-color: white;
             width: 80%;
@@ -47,6 +48,7 @@
         }
     </style>
 </head>
+
 <body>
     <form action="thongTinVe.php" method="post">
         <div class="info_ve">
@@ -62,7 +64,7 @@
                     </tr>
                     <?php
                     while ($row = mysqli_fetch_assoc($result)) {
-                        $ma_ve = randomTicketCode(8);
+                        $ma_ve = $row["ma_ve"];
                         $trang_thai = '';
                         switch ($row['tinh_trang']) {
                             case 0:
@@ -87,4 +89,5 @@
         </div>
     </form>
 </body>
+
 </html>
