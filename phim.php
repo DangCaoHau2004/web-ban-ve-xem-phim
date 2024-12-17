@@ -1,6 +1,23 @@
 <?php
 $id_phim = 1;
-include("navbar.php");
+include("database.php");
+
+if (isset($GET["id_phim"])){
+    $id_phim = $_GET["id_phim"];
+    $nameArr = 65;
+    $sql = "SELECT id_phim, ten, the_loai, thoi_luong, link_img, mo_ta, ngon_ngu, img_background FROM phim Where id_phim =" . $id_phim;
+    $results = $results->fetch_all(MYSQLI_ASSOC)[0];
+    $phim = [
+        "id_phim" => $results["id_phim"],
+        "ten" => $results["ten"],
+        "the_loai" => $results["the_loai"],
+        "thoi_luong" => $results["thoi_luong"],
+        "link_img" => $results["link_img"],
+        "mo_ta" => $results["mo_ta"],
+        "ngon_ngu" => $results["ngon_ngu"],
+        img_background => $results["img_background"],
+    ]
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -8,10 +25,19 @@ include("navbar.php");
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Cinemar - Danh Sách Phim</title>
+
     <style>
         /* Cấu trúc cơ bản */
-        body {
+        .cinema-sitting {
+                    display: grid;
+                    grid-template-columns: repeat(<?php echo $column; ?>, 30px);
+                    grid-template-rows: repeat(<?php echo $row; ?>, 30px);
+                    gap: 10px;
+                    width: fit-content;
+                    margin: 0 auto;
+        }
+        .body {
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
@@ -95,12 +121,10 @@ include("navbar.php");
 </head>
 
 <body>
-
     <section id="movie-list" class="movie-list">
         <!-- Danh sách phim sẽ được JavaScript điền vào đây -->
     </section>
-
-    <div id="movie-detail-modal" class="modal">
+    < id="movie-detail-modal" class="modal">
         <div class="modal-content">
             <span class="close" onclick="closeModal()">&times;</span>
             <h2 id="movie-title-detail"></h2>
@@ -109,6 +133,7 @@ include("navbar.php");
             <p><strong>Thể loại:</strong> <span id="movie-genre-detail"></span></p>
             <p><strong>Đánh giá:</strong> <span id="movie-rating-detail"></span></p>
         </div>
+        <div class="cinema-sitting">
+        </div>
 </body>
-
 </html>

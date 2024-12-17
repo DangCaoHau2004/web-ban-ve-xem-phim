@@ -1,5 +1,5 @@
 <?php
-$id_phim = 1;
+$id_phim = (int)$_GET["id_phim"];
 include("database.php");
 $results =  $conn->query("SELECT ten, the_loai, thoi_luong, link_img, mo_ta, ngon_ngu FROM phim WHERE id_phim = " . $id_phim);
 $results = $results->fetch_all(MYSQLI_ASSOC)[0];
@@ -18,7 +18,7 @@ $chi_tiet_phim = [
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Chi Tiết Phim - Cô Dâu Hào Môn | Beat Cinemas</title>
+  <title>Chi Tiết Phim Cinemas</title>
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -116,15 +116,16 @@ $chi_tiet_phim = [
       </div>
       <div class="movie-info">
         <h2><?php echo $chi_tiet_phim["ten"] ?></h2>
-        <p><strong>Thể loại:</strong> <?php echo $chi_tiet_phim["the_loai"] ?> </p>
-        <p><strong>Thời gian:</strong> <?php echo $chi_tiet_phim["thoi_luong"] ?></p>
-        <p><strong>Mô tả:</strong><?php echo $chi_tiet_phim["mo_ta"] ?></p>
-        <p><strong>Ngôn ngữ:</strong><?php echo $chi_tiet_phim["ngon_ngu"] ?></p>
+        <p><strong>Thể loại: </strong> <?php echo $chi_tiet_phim["the_loai"] ?> </p>
+        <p><strong>Thời gian: </strong> <?php echo $chi_tiet_phim["thoi_luong"] ?></p>
+        <p><strong>Mô tả: </strong><?php echo $chi_tiet_phim["mo_ta"] ?></p>
+        <p><strong>Ngôn ngữ: </strong><?php echo $chi_tiet_phim["ngon_ngu"] ?></p>
 
         <!-- Lịch chiếu và đặt vé -->
         <div class="showtimes">
           <h3>Lịch Chiếu</h3>
           <ul>
+            <li><a href="web-ban-ve-xem-phim/chi_tiet_phim.php?id_phim=2"></a></li>
             <li>12:00 PM - Rạp 1</li>
             <li>03:00 PM - Rạp 2</li>
             <li>06:00 PM - Rạp 3</li>
