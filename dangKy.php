@@ -12,8 +12,6 @@
     
         // Kiểm tra email có tồn tại trong CSDL không
         $check_email = "SELECT * FROM users WHERE email = '$email'";
-        // $ktra = $conn->prepare($check_email);
-        // $ktra->execute();
         $result = $conn->query($check_email); //Lấy kết quả của truy vấn SQL đã thực thi trước đó
 
         if ($result->num_rows > 0) {
