@@ -1,8 +1,10 @@
 <?php
 $id_phim = (int)$_GET["id_phim"];
 include("database.php");
-$results =  $conn->query("SELECT ten, the_loai, thoi_luong, link_img, mo_ta, ngon_ngu FROM phim WHERE id_phim = " . $id_phim);
+
+$results = $conn->query("SELECT ten, the_loai, thoi_luong, link_img, mo_ta, ngon_ngu FROM phim WHERE id_phim = " . $id_phim);
 $results = $results->fetch_all(MYSQLI_ASSOC)[0];
+
 $chi_tiet_phim = [
   "ten" => $results["ten"],
   "the_loai" => $results["the_loai"],
@@ -10,7 +12,21 @@ $chi_tiet_phim = [
   "link_img" => $results["link_img"],
   "mo_ta" => $results["mo_ta"],
   "ngon_ngu" => $results["ngon_ngu"],
-]
+];
+
+$sql = "SELECT id_lich_chieu, rap_chieu, DATE_FORMAT(ngay_chieu, '%d/%m/%Y') AS ngay_chieu, gio_chieu, id_phong 
+        FROM lich_chieu 
+        WHERE id_phim = " . $id_phim;
+$results_lich_chieu = $conn->query($sql);
+$ds_lich_chieu = [];
+
+while ($result = $results_lich_chieu->fetch_assoc()) {
+  array_push($ds_lich_chieu, [
+    "id_lich_chieu" => $result["id_lich_chieu"],
+    "thong_tin" => "Chiếu tại rạp: " . $result["rap_chieu"] . " Ngày chiếu: " . $result["ngay_chieu"] . " Giờ chiếu: " . $result["gio_chieu"] . " Phòng chiếu: " . $result["id_phong"]
+  ]);
+}
+print_r($ds_lich_chieu);
 ?>
 <!DOCTYPE html>
 <html lang="vi">
@@ -102,6 +118,11 @@ $chi_tiet_phim = [
     button:hover {
       background-color: #005f6b;
     }
+
+    a {
+      text-decoration: none;
+      color: black;
+    }
   </style>
 </head>
 
@@ -112,7 +133,7 @@ $chi_tiet_phim = [
     <!-- Chi tiết phim Cô Dâu Hào Môn -->
     <div class="movie-details">
       <div class="movie-poster">
-        <img src=<?php echo $chi_tiet_phim["link_img"] ?> alt="Cô Dâu Hào Môn">
+        <img src=<?php echo $chi_tiet_phim["link_img"] ?>>
       </div>
       <div class="movie-info">
         <h2><?php echo $chi_tiet_phim["ten"] ?></h2>
@@ -125,11 +146,10 @@ $chi_tiet_phim = [
         <div class="showtimes">
           <h3>Lịch Chiếu</h3>
           <ul>
-            <li><a href="web-ban-ve-xem-phim/chi_tiet_phim.php?id_phim=2"></a></li>
-            <li>12:00 PM - Rạp 1</li>
-            <li>03:00 PM - Rạp 2</li>
-            <li>06:00 PM - Rạp 3</li>
-            <li>08:00 PM - Rạp 1</li>
+            <?php foreach ($ds_lich_chieu as $ds) {
+            ?>
+              <li><a href=<?php echo "/web-ban-ve-xem-phim/chon_ghe.php?id_lich_chieu=" . $ds["id_lich_chieu"] ?>><?php echo $ds["thong_tin"] ?></a></li>
+            <?php        } ?>
           </ul>
         </div>
         <button id="book-ticket-btn" onclick="goToBooking()">Đặt vé</button>
