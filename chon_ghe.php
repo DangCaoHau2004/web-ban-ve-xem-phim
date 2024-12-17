@@ -40,6 +40,8 @@ if (isset($_GET["id_lich_chieu"])) {
             <link rel="stylesheet" href="./style.css">
             <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
             <style>
+                /* bảng danh sách ghế */
+
                 .cinema-sitting {
                     display: grid;
                     grid-template-columns: repeat(<?php echo $column; ?>, 30px);
@@ -80,7 +82,6 @@ if (isset($_GET["id_lich_chieu"])) {
                     width: 100%;
                 }
 
-                /* bảng danh sách ghế */
                 .cinema-sitting {}
 
                 /* tùy chỉnh các ghế */

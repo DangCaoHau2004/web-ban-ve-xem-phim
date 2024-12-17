@@ -25,8 +25,12 @@ if (isset($GET["id_phim"])){
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<<<<<<< HEAD
     <title>Cinemar - Danh Sách Phim</title>
 
+=======
+    <title>Phim</title>
+>>>>>>> 734d2d0c96d318f86ab9b98e31e6127f733e4225
     <style>
         /* Cấu trúc cơ bản */
         .cinema-sitting {

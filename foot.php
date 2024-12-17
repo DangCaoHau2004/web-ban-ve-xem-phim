@@ -46,7 +46,7 @@
 
         /* Style cho item "Cụm rạp" */
         .beta {
-            width: 465px;
+            width: 400px;
             padding-left: 11%;
         }
 
