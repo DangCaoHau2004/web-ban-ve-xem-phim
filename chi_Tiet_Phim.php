@@ -1,6 +1,6 @@
 <?php
 $id_phim = (int)$_GET["id_phim"];
-include("database.php");
+include("navbar.php");
 
 $results = $conn->query("SELECT ten, the_loai, thoi_luong, link_img, mo_ta, ngon_ngu FROM phim WHERE id_phim = " . $id_phim);
 $results = $results->fetch_all(MYSQLI_ASSOC)[0];
@@ -26,7 +26,6 @@ while ($result = $results_lich_chieu->fetch_assoc()) {
     "thong_tin" => "Chiếu tại rạp: " . $result["rap_chieu"] . " Ngày chiếu: " . $result["ngay_chieu"] . " Giờ chiếu: " . $result["gio_chieu"] . " Phòng chiếu: " . $result["id_phong"]
   ]);
 }
-print_r($ds_lich_chieu);
 ?>
 <!DOCTYPE html>
 <html lang="vi">
@@ -152,7 +151,6 @@ print_r($ds_lich_chieu);
             <?php        } ?>
           </ul>
         </div>
-        <button id="book-ticket-btn" onclick="goToBooking()">Đặt vé</button>
       </div>
     </div>
   </div>

@@ -1,5 +1,7 @@
+<?php include("navbar.php") ?>
 <!DOCTYPE html>
 <html lang="vi">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,86 +9,93 @@
     <link rel="stylesheet" href="./style.css">
     <style>
         body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    background-color: white;
-}
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: white;
+        }
 
-.container {
-    width: 80%;
-    margin: 0 auto;
-    padding: 20px;
-    background-color: #fff;
-    border-radius: 8px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-}
+        .container {
+            width: 80%;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
 
-h1 {
-    text-align: center;
-    color: #333;
-}
+        h1 {
+            text-align: center;
+            color: #333;
+        }
 
-h2 {
-    color: #007BFF;
-    font-size: 25px;
-    margin-bottom: 10px;
-}
+        h2 {
+            color: #007BFF;
+            font-size: 25px;
+            margin-bottom: 10px;
+        }
 
-.news-section, .offers-section {
-    margin-bottom: 40px;
-}
+        .news-section,
+        .offers-section {
+            margin-bottom: 40px;
+        }
 
-.news-list, .offers-list {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 20px;
-}
+        .news-list,
+        .offers-list {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
 
-.news-item, .offer-item {
-    width: 80%;
-    height: auto;
-    background-color: #f9f9f9;
-    padding: 15px;
-    border-radius: 8px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-}
+        .news-item,
+        .offer-item {
+            width: 80%;
+            height: auto;
+            background-color: #f9f9f9;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
 
-.news-item img, .offer-item img {
-    width: 100%;
-    height: 50%;
-    border-radius: 8px;
-    margin-bottom: 15px;
-}
+        .news-item img,
+        .offer-item img {
+            width: 100%;
+            height: 50%;
+            border-radius: 8px;
+            margin-bottom: 15px;
+        }
 
-h3 {
-    font-size: 18px;
-    color: #333;
-    margin-bottom: 10px;
-}
+        h3 {
+            font-size: 18px;
+            color: #333;
+            margin-bottom: 10px;
+        }
 
-p {
-    font-size: 14px;
-    color: #555;
-    margin-bottom: 10px;
-}
+        p {
+            font-size: 14px;
+            color: #555;
+            margin-bottom: 10px;
+        }
 
-a {
-    color: #007BFF;
-    text-decoration: none;
-}
+        a {
+            color: #007BFF;
+            text-decoration: none;
+        }
 
-a:hover {
-    text-decoration: underline;
-}
+        a:hover {
+            text-decoration: underline;
+        }
 
-@media (max-width: 768px) {
-    .news-list, .offers-list {
-        grid-template-columns: 1fr;
-    }
-}
+        @media (max-width: 768px) {
+
+            .news-list,
+            .offers-list {
+                grid-template-columns: 1fr;
+            }
+        }
     </style>
 </head>
+
 <body>
     <div class="container">
         <h1>Tin Mới và Ưu Đãi</h1>
@@ -132,4 +141,5 @@ a:hover {
 
     <script src="./script.js"></script>
 </body>
+
 </html>

@@ -196,7 +196,7 @@
             </div>
 
         </div>
-        <div class="film"></div>
+
 
     </div>
     <!-- footer -->

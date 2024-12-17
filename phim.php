@@ -1,6 +1,6 @@
 <?php
 include("navbar.php");
-$sql = "SELECT id_phim, ten, the_loai, thoi_luong, link_img, mo_ta, ngon_ngu, img_background FROM phim";
+$sql = "SELECT id_phim, ten, the_loai, thoi_luong, link_img, mo_ta, ngon_ngu FROM phim";
 $results = $conn->query($sql);
 $results = $results->fetch_all(MYSQLI_ASSOC);
 $ds_phim = [];
@@ -55,7 +55,6 @@ foreach ($results as $result) {
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             text-align: center;
             padding: 10px;
-            transition: transform 0.3s ease;
         }
 
         .movie-item img {
@@ -83,7 +82,7 @@ foreach ($results as $result) {
 </head>
 
 <body>
-    <section id="movie-list" class="movie-list">
+    <section id="movie-list">
         <?php foreach ($ds_phim as $phim) {
         ?>
             <a href=<?php echo "/web-ban-ve-xem-phim/chi_Tiet_Phim.php?id_phim="  . $phim["id_phim"] ?>>
@@ -91,6 +90,10 @@ foreach ($results as $result) {
                     <img src=<?php echo $phim["link_img"] ?>>
                     <h3><?php echo $phim["ten"] ?></h3>
                     <p><?php echo $phim["mo_ta"] ?></p>
+                    <p>Thể Loại: <?php echo $phim["the_loai"] ?></p>
+                    <p>Thời Lượng: <?php echo $phim["thoi_luong"] ?></p>
+                    <p>Ngôn Ngữ<?php echo $phim["ngon_ngu"] ?></p>
+
                 </div>
             </a>
         <?php
