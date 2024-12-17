@@ -19,11 +19,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
       $_SESSION['users']['sdt'] = $sdt;
       $_SESSION['users']['email'] = $email;
       echo '<script>alert("Cập nhật thông tin thành công!");</script>';
-      header("Location: " . $_SERVER['PHP_SELF']);
+      header("Location: index.php");
       exit();
     } else {
       echo '<script>alert("Lỗi cập nhật! Vui lòng thử lại sau!");</script>';
-      header("Location: " . $_SERVER['PHP_SELF']);
+      header("Location: index.php");
       exit();
     }
   }
