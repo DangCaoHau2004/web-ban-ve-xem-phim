@@ -1,5 +1,5 @@
 <?php
-include("database.php");
+include("navbar.php");
 $sql = "SELECT id_phim, ten, the_loai, thoi_luong, link_img, mo_ta, ngon_ngu, img_background FROM phim";
 $results = $conn->query($sql);
 $results = $results->fetch_all(MYSQLI_ASSOC);
@@ -100,3 +100,4 @@ foreach ($results as $result) {
 </body>
 
 </html>
+<?php include("foot.php") ?>
