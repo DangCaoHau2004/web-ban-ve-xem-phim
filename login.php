@@ -73,7 +73,7 @@ if (isset($_SESSION['user_id'])) {
 
         }
 
-        /* code login */
+        /* css login */
 
         .form-group {
             margin-top: 14px;
@@ -111,7 +111,6 @@ if (isset($_SESSION['user_id'])) {
 
 
         .forgot-password {
-
             color: #337ab7;
             font-size: 16px;
             text-decoration: none;
@@ -135,7 +134,6 @@ if (isset($_SESSION['user_id'])) {
 
 
         .tabs div {
-
             text-align: center;
             padding: 17px;
             border-bottom: 1px solid gainsboro;
@@ -176,7 +174,6 @@ if (isset($_SESSION['user_id'])) {
             font-size: 14px;
             margin-top: 15px;
             margin-bottom: 15px;
-
             padding: 10px 40px;
             background: linear-gradient(90deg, red, rgb(255, 127, 127));
             color: #fff;
@@ -198,114 +195,12 @@ if (isset($_SESSION['user_id'])) {
             transition: 0.5s;
         }
 
-        .forget-password-modal {
-            position: fixed;
-            top: 0;
-            right: 0;
-            bottom: 0;
-            left: 0;
-            background: rgba(0, 0, 0, 0.7);
 
-            display: none;
-            animation: fadeIn ease-in 0.2s;
-
-        }
-
-
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-            }
-
-            to {
-                opacity: 1;
-            }
-        }
-
-        .forget-password-modal.open {
-            display: flex;
-        }
-
-        .modal-container {
-            background-color: #fff;
-            width: 535px;
-            min-height: 200px;
-            position: relative;
-            margin: auto;
-
-        }
-
-        .modal-header {
-
-            padding-left: 15px;
-            font-size: 23px;
-            height: 60px;
-            display: flex;
-            align-items: center;
-            border-bottom: 1px solid #e5e5e5;
-        }
-
-        .modal-close {
-            position: absolute;
-            right: 0;
-            top: 0;
-            padding: 12px;
-            cursor: pointer;
-            opacity: 0.7;
-            font-size: 20px;
-        }
-
-        .modal-close:hover {
-            opacity: 1;
-        }
-
-        .modal-body {
-            padding: 10px 20px;
-        }
-
-        .forgot-password {
-            cursor: pointer;
-        }
-
-        .get-password-button {
-            font-size: 14px;
-
-            margin-top: 15px;
-            margin-bottom: 15px;
-
-            padding: 10px 40px;
-
-            background-color: rgb(34, 136, 202);
-            color: #fff;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            opacity: 1;
-
-        }
-
-        .get-password-button:hover {
-            opacity: 0.8;
-
-            color: #fff;
-        }
-
-        .forget-password-button {
-
-            text-align: center;
-        }
 
         .error {
             color: red;
-
             font-weight: 450;
             font-size: 14px;
-        }
-
-        .footer {
-            width: 100%;
-            height: 659px;
-
         }
     </style>
 </head>
@@ -319,7 +214,6 @@ if (isset($_SESSION['user_id'])) {
             <form name="form1" method="POST" onsubmit=" return validation()">
 
                 <p style="color: red;"><?php echo $error; ?></p>
-
 
                 <div class="form-group">
                     <label for="email">Email</label>
@@ -335,12 +229,7 @@ if (isset($_SESSION['user_id'])) {
                         <i class="fa fa-lock"></i>
                         <input type="password" id="password" name="password" placeholder="Mật khẩu">
                     </div>
-
                 </div>
-
-                <!-- <div class="form-group ">
-                    <span href="#" class="forgot-password js-buy-ticket">Quên mật khẩu?</span>
-                </div> -->
 
                 <div class="login-button"><button type="submit" name="login" class="btn">ĐĂNG NHẬP BẰNG TÀI KHOẢN</button>
                 </div>
@@ -352,61 +241,11 @@ if (isset($_SESSION['user_id'])) {
     include("foot.php");
     ?>
 
-    <div class="forget-password-modal js-modal">
-
-        <div class="modal-container js-modal-container">
-            <div class="modal-close js-modal-close">
-                <i class="fa-solid fa-xmark"></i>
-            </div>
-            <div class="modal-header">
-                LẤY LẠI MẬT KHẨU
-            </div>
-            <div class="modal-body">
-                <div class="form-group">
-                    <label for="email">Email</label>
-                    <div class="input-icon">
-                        <i class="fa fa-user"></i>
-                        <input type="email" id="email-form-2" name="email" placeholder="Email">
-                    </div>
-
-                </div>
-                <div class="forget-password-button">
-                    <button class="get-password-button">LẤY LẠI MẬT KHẨU</button>
-                </div>
-
-            </div>
-        </div>
-
-
-    </div>
     <script>
-        //javascript modal hiện lên quên mật khẩu
-        const forgetPW = document.querySelector('.js-buy-ticket')
-        const modal = document.querySelector('.js-modal')
-        const modalContainer = document.querySelector('.js-modal-container')
-        const modalClose = document.querySelector('.js-modal-close')
-
-        // thực hiện đóng mở modal
-        function showForgetPassword() {
-            modal.classList.add('open')
-        }
-
-        function hideBuyTicket() {
-            modal.classList.remove('open')
-        }
-        //lắng nghe sự kiện click
-        forgetPW.addEventListener('click', showForgetPassword)
-        modalClose.addEventListener('click', hideBuyTicket)
-        modal.addEventListener('click', hideBuyTicket)
-        modalContainer.addEventListener('click', function(event) {
-            event.stopPropagation()
-        })
-        // xử lý form nhập đưa thông báo 
+        // xử lý form trống để đưa ra thông báo 
         function validation() {
             var mail = document.form1.email.value;
             var pass = document.form1.password.value;
-
-            const regex = /^[^\s@]+@[^\s@]+\.[a-zA-Z]{2,}$/; // biến để xác thực email
             // kiểm tra email mật khẩu nếu bị trống
             if (mail.length == "" && pass.length == "") {
                 alert("Vui lòng nhập email và mật khẩu");
@@ -420,10 +259,6 @@ if (isset($_SESSION['user_id'])) {
                     alert("Vui lòng nhập mật khẩu");
                     return false
                 }
-            }
-            if (!regex.test(mail)) {
-                alert("Email nhập chưa đúng định dạng!")
-                return false
             }
 
         }
