@@ -101,6 +101,7 @@ if (isset($_GET["id_lich_chieu"])) {
                     top: 5%;
                     left: 0%;
                     font-size: 14px;
+                    user-select: none;
                 }
 
                 /* ảnh của div ghế */

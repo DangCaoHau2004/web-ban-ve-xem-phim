@@ -9,7 +9,7 @@ CREATE TABLE users (
     ngay_sinh DATE NOT NULL,
     gioi_tinh ENUM('Nam', 'Nữ', 'Khác') NOT NULL,
     sdt VARCHAR(15) NOT NULL,
-    is_admin INT DEFAULT 0   
+    is_admin INT DEFAULT 0
 );
 
 CREATE TABLE phim (
