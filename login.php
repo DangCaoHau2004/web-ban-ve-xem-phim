@@ -17,6 +17,7 @@ if (isset($_POST['email']) && isset($_POST['password'])) {
     $result = mysqli_query($conn, $sql);
     if (mysqli_num_rows($result) > 0) {
         $row = mysqli_fetch_assoc($result);
+        $_SESSION['admin'] = $row['is_admin'];
         $_SESSION['user_id'] = $row['id'];
         // Thêm đoạn mã này để lưu thông tin người dùng vào session
         $_SESSION['users'] = [

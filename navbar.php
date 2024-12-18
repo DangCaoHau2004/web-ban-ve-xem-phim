@@ -76,7 +76,7 @@ include("database.php");
     }
 
     .ticket {
-      margin-left: 600px;
+      margin-left: 450px;
     }
 
     .ticket a {
@@ -113,6 +113,11 @@ include("database.php");
   <div class="nav_bar">
     <div class="nav_bar_logo">
       <a href="index.php"><img src="./img/logo.png" alt="logo" /></a>
+    </div>
+    <div class="movies">
+      <?php if(isset($_SESSION['admin']) && $_SESSION['admin'] == 1): ?>
+      <a href="admin_xn.php" style="font-size: 16px;">TRANG QUẢN LÝ</a>
+      <?php endif; ?>
     </div>
     <div class="ticket">
       <?php if (isset($_SESSION['users']['ho_ten'])): ?>
