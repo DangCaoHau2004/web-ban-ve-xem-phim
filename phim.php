@@ -1,6 +1,6 @@
 <?php
 include("navbar.php");
-$sql = "SELECT id_phim, ten, the_loai, thoi_luong, link_img, mo_ta, ngon_ngu FROM phim";
+$sql = "SELECT id_phim, ten, the_loai, thoi_luong, link_img, ngon_ngu FROM phim";
 $results = $conn->query($sql);
 $results = $results->fetch_all(MYSQLI_ASSOC);
 $ds_phim = [];
@@ -13,7 +13,6 @@ foreach ($results as $result) {
         "the_loai" => $result["the_loai"],
         "thoi_luong" => $result["thoi_luong"],
         "link_img" => $result["link_img"],
-        "mo_ta" => $result["mo_ta"],
         "ngon_ngu" => $result["ngon_ngu"],
     ]);
 }
@@ -89,10 +88,9 @@ foreach ($results as $result) {
                 <div class="movie-item">
                     <img src=<?php echo $phim["link_img"] ?>>
                     <h3><?php echo $phim["ten"] ?></h3>
-                    <p><?php echo $phim["mo_ta"] ?></p>
-                    <p>Thể Loại: <?php echo $phim["the_loai"] ?></p>
-                    <p>Thời Lượng: <?php echo $phim["thoi_luong"] ?></p>
-                    <p>Ngôn Ngữ<?php echo $phim["ngon_ngu"] ?></p>
+                    <p><b>Thể Loại: </b> <?php echo $phim["the_loai"] ?></p>
+                    <p><b>Thời Lượng: </b><?php echo $phim["thoi_luong"] ?></p>
+                    <p><b>Ngôn Ngữ: </b><?php echo $phim["ngon_ngu"] ?></p>
 
                 </div>
             </a>
