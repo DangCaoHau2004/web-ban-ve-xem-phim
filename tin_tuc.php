@@ -138,7 +138,8 @@
             </div>
         </div>
     </div>
-
+    
+    <?php include("foot.php"); ?>
     <script src="./script.js"></script>
 </body>
 
