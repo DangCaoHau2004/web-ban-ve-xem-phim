@@ -89,7 +89,7 @@ foreach ($results as $result) {
                     <img src=<?php echo $phim["link_img"] ?>>
                     <h3><?php echo $phim["ten"] ?></h3>
                     <p><b>Thể Loại: </b> <?php echo $phim["the_loai"] ?></p>
-                    <p><b>Thời Lượng: </b><?php echo $phim["thoi_luong"] ?></p>
+                    <p><b>Thời Lượng: </b><?php echo $phim["thoi_luong"] ?> phút</p>
                     <p><b>Ngôn Ngữ: </b><?php echo $phim["ngon_ngu"] ?></p>
 
                 </div>

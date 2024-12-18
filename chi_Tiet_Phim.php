@@ -137,7 +137,7 @@ while ($result = $results_lich_chieu->fetch_assoc()) {
       <div class="movie-info">
         <h2><?php echo $chi_tiet_phim["ten"] ?></h2>
         <p><strong>Thể loại: </strong> <?php echo $chi_tiet_phim["the_loai"] ?> </p>
-        <p><strong>Thời gian: </strong> <?php echo $chi_tiet_phim["thoi_luong"] ?></p>
+        <p><strong>Thời gian: </strong> <?php echo $chi_tiet_phim["thoi_luong"] ?> phút</p>
         <p><strong>Mô tả: </strong><?php echo $chi_tiet_phim["mo_ta"] ?></p>
         <p><strong>Ngôn ngữ: </strong><?php echo $chi_tiet_phim["ngon_ngu"] ?></p>
 
