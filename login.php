@@ -31,7 +31,7 @@ if (isset($_POST['email']) && isset($_POST['password'])) {
         exit();
     } else {
         // Nếu đăng nhập khi ghi sai mật khẩu và email
-        $_SESSION['thong_bao'] = "Sai email hoặc mật khẩu | Incorrect email or password"; // lưu thông báo vào session
+        $_SESSION['thong_bao'] = "Sai username hoặc mật khẩu | Incorrect email or password"; // lưu thông báo vào session
         header("Location: " . $_SERVER['PHP_SELF']); // Chuyển hướng lại trang hiện tại
         exit();
     }
