@@ -305,6 +305,10 @@ if (isset($_SESSION["user_id"])) {
                 table button:hover {
                     cursor: pointer;
                 }
+
+                form input {
+                    border: 1px solid black;
+                }
             </style>
         </head>
 

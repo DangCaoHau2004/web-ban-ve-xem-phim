@@ -128,9 +128,7 @@ if (isset($_SESSION["user_id"])) {
                     align-items: center;
                 }
 
-                form {
-                    margin: 100px;
-                }
+
 
                 .them_phim_form * {
                     display: block;
@@ -171,6 +169,10 @@ if (isset($_SESSION["user_id"])) {
                 th,
                 td {
                     padding: 5px;
+                }
+
+                form input {
+                    border: 1px solid black;
                 }
             </style>
         </head>
