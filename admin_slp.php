@@ -157,7 +157,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
                     // Thực thi câu lệnh UPDATE
                     if ($conn->query($sql)) {
-                        $_SESSION["thong_bao"] = "Thêm lịch chiếu thành công ";
+                        $_SESSION["thong_bao"] = "Thêm lịch chiếu thành công";
 
                         header("Location: " . $_SERVER['PHP_SELF']);
                         exit();

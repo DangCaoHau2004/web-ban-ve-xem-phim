@@ -20,7 +20,7 @@ CREATE TABLE phim (
     link_img VARCHAR(255),
     mo_ta TEXT,
     ngon_ngu VARCHAR(50),
-    img_background VARCHAR(255) -- Thêm cột img_background
+    img_background VARCHAR(255)
 );
 
 CREATE TABLE phong (

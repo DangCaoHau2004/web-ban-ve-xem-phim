@@ -2,13 +2,14 @@
 
 include("./database.php");
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    if (isset($_POST["ten"], $_POST["the_loai"], $_POST["thoi_luong"], $_POST["link_img"], $_POST["mo_ta"], $_POST["ngon_ngu"])) {
+    if (isset($_POST["ten"], $_POST["the_loai"], $_POST["thoi_luong"], $_POST["link_img"], $_POST["mo_ta"], $_POST["ngon_ngu"], $_POST["img_background"])) {
         $ten = $_POST["ten"];
         $the_loai = $_POST["the_loai"];
         $thoi_luong = $_POST["thoi_luong"];
         $link_img = $_POST["link_img"];
         $mo_ta = $_POST["mo_ta"];
         $ngon_ngu = $_POST["ngon_ngu"];
+        $img_background = $_POST["img_background"];
         // nếu tồn tại id_phim thì nó là sửa hoặc xóa phim
         if (isset($_POST["id_phim"])) {
             $id_phim = $_POST["id_phim"];
@@ -22,7 +23,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                             thoi_luong = '" . $thoi_luong . "', 
                             link_img = '" . $link_img . "', 
                             mo_ta = '" . $mo_ta . "', 
-                            ngon_ngu = '" . $ngon_ngu . "' 
+                            ngon_ngu = '" . $ngon_ngu . "', 
+                            img_background = '" . $img_background . "' 
                         WHERE id_phim = " . $id_phim;
 
                 if ($conn->query($sql)) {
@@ -46,7 +48,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 } else {
                     $sql = "DELETE FROM phim WHERE id_phim = " . (int)$id_phim;
                     if ($conn->query($sql)) {
-                        $_SESSION["thong_bao"] = "Xóa phim thành công ";
+                        $_SESSION["thong_bao"] = "Xóa phim thành công";
 
                         header("Location: " . $_SERVER['PHP_SELF']);
                         exit();
@@ -62,7 +64,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
         // nếu ko có id phim thì là điền thêm        
         else {
-            $sql = "INSERT INTO phim (ten, the_loai, thoi_luong, link_img, mo_ta, ngon_ngu) VALUES ('" . $ten . "', '" . $the_loai . "', " . (int)$thoi_luong . ", '" . $link_img . "', '" . $mo_ta . "', '" . $ngon_ngu . "')";
+            $sql = "INSERT INTO phim (ten, the_loai, thoi_luong, link_img, mo_ta, ngon_ngu, img_background) VALUES ('" . $ten . "', '" . $the_loai . "', " . (int)$thoi_luong . ", '" . $link_img . "', '" . $mo_ta . "', '" . $ngon_ngu . "','" . $img_background . "')";
             if ($conn->query($sql)) {
                 $_SESSION["thong_bao"] = "Thêm phim thành công ";
 
@@ -212,6 +214,8 @@ if (isset($_SESSION["user_id"])) {
                 <input type="text" name="mo_ta" required>
                 <label for="">Ngôn ngữ</label>
                 <input type="text" name="ngon_ngu" required>
+                <label for="">Img background</label>
+                <input type="text" name="img_background" required>
                 <button type="submit">Xác nhận</button>
             </form>
             <h1>Danh sách các phim</h1>
