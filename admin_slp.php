@@ -25,7 +25,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 // nhận value từ btn
                 if ($_POST["xu_ly"] == "sua") {
 
-                    if ($rap_chieu != 'Nhóm 4') {
+                    if ($rap_chieu != 'Nhóm 5') {
                         $_SESSION["thong_bao"] = "Các dữ liệu nhập không hợp lệ";
                         header("Location: " . $_SERVER['PHP_SELF']);
                         exit();
@@ -337,7 +337,7 @@ if (isset($_SESSION["user_id"])) {
                 <input type="number" name="id_phim" id="id_phim" required>
 
                 <label for="rap_chieu">Rạp chiếu</label>
-                <input readonly type="text" name="rap_chieu" id="rap_chieu" value="Nhóm 4" required>
+                <input readonly type="text" name="rap_chieu" id="rap_chieu" value="Nhóm 5" required>
 
                 <label for="ngay_chieu">Ngày chiếu</label>
                 <input type="date" name="ngay_chieu" id="ngay_chieu" required>
