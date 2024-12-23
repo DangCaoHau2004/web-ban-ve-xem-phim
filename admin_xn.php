@@ -295,7 +295,7 @@ if (isset($_SESSION["user_id"])) {
         exit();
     }
 } else {
-    $_SESSION["ERR"] = "Bạn không có quyền truy cập trang này!";
+    $_SESSION["ERR"] = "Bạn chưa đăng nhập";
     header("Location: ERR404.php");
     exit();
 } ?>
