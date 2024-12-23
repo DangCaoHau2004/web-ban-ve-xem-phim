@@ -1,51 +1,53 @@
 <?php
-    //Liên kết với CSDL
-    include("navbar.php");
-    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-        $ho_ten = $_POST['ho_ten'];
-        $email = $_POST['email'];
-        $mat_khau = $_POST['mat_khau'];
-        $reup_mat_khau = $_POST['reup_mat_khau'];
-        $ngay_sinh = $_POST['ngay_sinh'];
-        $gioi_tinh = $_POST['gioi_tinh'];
-        $sdt = $_POST['sdt'];
-    
-        // Kiểm tra email có tồn tại trong CSDL không
-        $check_email = "SELECT * FROM users WHERE email = '$email'";
-        $result = mysqli_query($conn, $check_email); //Lấy kết quả của truy vấn SQL đã thực thi trước đó
+//Liên kết với CSDL
+include("navbar.php");
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    $ho_ten = $_POST['ho_ten'];
+    $email = $_POST['email'];
+    $mat_khau = $_POST['mat_khau'];
+    $reup_mat_khau = $_POST['reup_mat_khau'];
+    $ngay_sinh = $_POST['ngay_sinh'];
+    $gioi_tinh = $_POST['gioi_tinh'];
+    $sdt = $_POST['sdt'];
 
-        if ($result->num_rows > 0) {
-            $alertMessage = "Email này đã được sử dụng. Vui lòng thử email khác!";
-        }
-        // Kiểm tra sự trùng khớp của mật khẩu
-        elseif($mat_khau !== $reup_mat_khau) {
-            $alertMessage = "Mật khẩu bạn nhập không khớp. Vui lòng xem lại!";
-        } else {
-            // Thêm dữ liệu vào bảng
-            $sql = "INSERT INTO users (ho_ten, email, mat_khau, ngay_sinh, gioi_tinh, sdt) 
+    // Kiểm tra email có tồn tại trong CSDL không
+    $check_email = "SELECT * FROM users WHERE email = '$email'";
+    $result = mysqli_query($conn, $check_email); //Lấy kết quả của truy vấn SQL đã thực thi trước đó
+
+    if ($result->num_rows > 0) {
+        $alertMessage = "Email này đã được sử dụng. Vui lòng thử email khác!";
+    }
+    // Kiểm tra sự trùng khớp của mật khẩu
+    elseif ($mat_khau !== $reup_mat_khau) {
+        $alertMessage = "Mật khẩu bạn nhập không khớp. Vui lòng xem lại!";
+    } else {
+        // Thêm dữ liệu vào bảng
+        $sql = "INSERT INTO users (ho_ten, email, mat_khau, ngay_sinh, gioi_tinh, sdt) 
                     VALUES ('$ho_ten', '$email', '$mat_khau', '$ngay_sinh', '$gioi_tinh', '$sdt')";
-            if ($conn->query($sql) === true) {
-                $_SESSION['user_id'] = $row['id'];
-                $_SESSION['ho_ten'] = $ho_ten;
-                $_SESSION['users'] = ['ho_ten' => $ho_ten, 
-                                    'email' => $email, 
-                                    'ngay_sinh' => $ngay_sinh, 
-                                    'gioi_tinh' => $gioi_tinh, 
-                                    'sdt' => $sdt ]; 
-                //Lưu thông tin người dùng
-                $alertMessage = "Bạn đã đăng ký thành công!";
-                $redirectScript = "window.location.href = 'index.php';";
-            } else {
-                $alertMessage = "Lỗi đăng ký! " . $conn->error;
-            }
-            $conn->close();
+        if ($conn->query($sql) === true) {
+            // $_SESSION['user_id'] = $row['id'];
+            // $_SESSION['ho_ten'] = $ho_ten;
+            // $_SESSION['users'] = [
+            //     'ho_ten' => $ho_ten,
+            //     'email' => $email,
+            //     'ngay_sinh' => $ngay_sinh,
+            //     'gioi_tinh' => $gioi_tinh,
+            //     'sdt' => $sdt
+            // ];
+            // //Lưu thông tin người dùng
+            $alertMessage = "Bạn đã đăng ký thành công!";
+            $redirectScript = "window.location.href = 'index.php';";
+        } else {
+            $alertMessage = "Lỗi đăng ký! " . $conn->error;
         }
+        $conn->close();
     }
+}
 
-    //Ngăn không cho người dùng truy cập lại trang đăng ký sau khi đăng ký thành công
-    if (isset($_SESSION['user_id'])) {
-        header("Location: index.php");
-    }
+//Ngăn không cho người dùng truy cập lại trang đăng ký sau khi đăng ký thành công
+if (isset($_SESSION['user_id'])) {
+    header("Location: index.php");
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -136,7 +138,12 @@
             padding-left: 10px;
         }
 
-        .name, .email, .password, .confirm-password, .dob, .phone {
+        .name,
+        .email,
+        .password,
+        .confirm-password,
+        .dob,
+        .phone {
             padding: 10px;
             font-size: 14.5px;
             border: none;
@@ -146,7 +153,11 @@
             width: 218.5px;
         }
 
-        .email, .password, .confirm-password, .dob, .phone {
+        .email,
+        .password,
+        .confirm-password,
+        .dob,
+        .phone {
             width: 187.5px;
         }
 
@@ -301,7 +312,7 @@
     </div>
 
     <?php
-        include("foot.php");
+    include("foot.php");
     ?>
 
     <script>
@@ -314,4 +325,5 @@
         <?php endif; ?>
     </script>
 </body>
+
 </html>
