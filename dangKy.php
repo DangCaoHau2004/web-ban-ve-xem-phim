@@ -25,15 +25,18 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $sql = "INSERT INTO users (ho_ten, email, mat_khau, ngay_sinh, gioi_tinh, sdt) 
                     VALUES ('$ho_ten', '$email', '$mat_khau', '$ngay_sinh', '$gioi_tinh', '$sdt')";
         if ($conn->query($sql) === true) {
-            // $_SESSION['user_id'] = $row['id'];
-            // $_SESSION['ho_ten'] = $ho_ten;
-            // $_SESSION['users'] = [
-            //     'ho_ten' => $ho_ten,
-            //     'email' => $email,
-            //     'ngay_sinh' => $ngay_sinh,
-            //     'gioi_tinh' => $gioi_tinh,
-            //     'sdt' => $sdt
-            // ];
+            $sql = "SELECT id FROM users WHERE email = '$email'";
+            $result =  $conn->query($sql);
+            $result = $result->fetch_all(MYSQLI_ASSOC)[0];
+            $_SESSION['user_id'] = $result["id"];
+            $_SESSION['ho_ten'] = $ho_ten;
+            $_SESSION['users'] = [
+                'ho_ten' => $ho_ten,
+                'email' => $email,
+                'ngay_sinh' => $ngay_sinh,
+                'gioi_tinh' => $gioi_tinh,
+                'sdt' => $sdt
+            ];
             // //Lưu thông tin người dùng
             $alertMessage = "Bạn đã đăng ký thành công!";
             $redirectScript = "window.location.href = 'index.php';";
