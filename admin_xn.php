@@ -163,7 +163,6 @@ if (isset($_SESSION["user_id"])) {
     $is_admin = $result["is_admin"];
 
 
-    $is_admin = 1;
     if ($is_admin) {
 ?>
         <!DOCTYPE html>
