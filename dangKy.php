@@ -26,8 +26,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     VALUES ('$ho_ten', '$email', '$mat_khau', '$ngay_sinh', '$gioi_tinh', '$sdt')";
         if ($conn->query($sql) === true) {
             $sql = "SELECT id FROM users WHERE email = '$email'";
-            $result =  $conn->query($sql);
-            $result = $result->fetch_all(MYSQLI_ASSOC)[0];
+            $result =  $conn->query($sql); //Thực thi câu lệnh SQL ($sql)
+            $result = $result->fetch_all(MYSQLI_ASSOC)[0]; /*Lấy dữ liệu từ câu lệnh trên dưới dạng mảng liên kết 
+                                                            ([0]: lấy dòng đầu tiên của kết quả nếu có nhiều hàng trả về)*/
             $_SESSION['user_id'] = $result["id"];
             $_SESSION['ho_ten'] = $ho_ten;
             $_SESSION['users'] = [
