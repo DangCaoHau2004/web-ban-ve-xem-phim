@@ -152,7 +152,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 }
                 // Cập nhật vào cơ sở dữ liệu
                 if (!$kt_trung_tg) {
-
+                    $sql = "SELECT * FROM lich_chieu WHERE id_phim = " . (int)$id_phim;
+                    $results = $conn->query($sql);
+                    if ($results->num_rows == 0) {
+                        $_SESSION["thong_bao"] = "Không tồn tại id phim: " . $id_phim;
+                        header("Location: " . $_SERVER['PHP_SELF']);
+                        exit();
+                    }
                     $sql = "INSERT INTO lich_chieu(id_phim, rap_chieu, ngay_chieu, gio_chieu, id_phong, ds_cho) VALUES(" . (int)$id_phim . ", '" . $rap_chieu . "' , '" . $ngay_chieu . "', '" . $gio_chieu . "' , '" . $id_phong . "', '')";
 
                     // Thực thi câu lệnh UPDATE
