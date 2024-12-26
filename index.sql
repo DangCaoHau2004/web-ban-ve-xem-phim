@@ -60,6 +60,9 @@
     VALUES 
     ('Quản Trị Viên', 'admin@example.com', 123456, '1990-01-01', 'Nam', '0123456789', 1);
 
+    INSERT INTO users (ho_ten, email, mat_khau, ngay_sinh, gioi_tinh, sdt, is_admin)
+    VALUES 
+    ('User', 'user@example.com', 123456, '1990-01-01', 'Nam', '0123456789', 0);
     INSERT INTO phim (ten, the_loai, thoi_luong, link_img, mo_ta, ngon_ngu, img_background) 
     VALUES
     ('Venom: Kèo Cuối', 'Khoa học, viễn tưởng', 109, 

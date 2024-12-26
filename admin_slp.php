@@ -152,7 +152,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 }
                 // Cập nhật vào cơ sở dữ liệu
                 if (!$kt_trung_tg) {
-                    $sql = "SELECT * FROM lich_chieu WHERE id_phim = " . (int)$id_phim;
+                    $sql = "SELECT * FROM phim WHERE id_phim = " . (int)$id_phim;
                     $results = $conn->query($sql);
                     if ($results->num_rows == 0) {
                         $_SESSION["thong_bao"] = "Không tồn tại id phim: " . $id_phim;

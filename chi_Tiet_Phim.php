@@ -155,7 +155,6 @@ while ($result = $results_lich_chieu->fetch_assoc()) {
     </div>
   </div>
 
-  <script src="script.js"></script>
 </body>
 
 </html>

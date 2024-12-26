@@ -170,7 +170,7 @@
         <div class="slide-container">
             <div class="slides">
                 <?php
-                $sql = "SELECT img_background FROM phim";
+                $sql = "SELECT img_background FROM phim LIMIT 5";
                 $result = mysqli_query($conn, $sql);
                 $addActive = false; //biến gán class active cho ảnh đầu tiên
                 while ($row = $result->fetch_assoc()) {
