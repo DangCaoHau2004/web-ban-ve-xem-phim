@@ -24,13 +24,13 @@ Dự án sử dụng các công nghệ:
 
 ## Screenshots
 
-<img src="" alt="" style="height: auto; width: 100%;">
+<img src="https://github.com/DangCaoHau2004/web-ban-ve-xem-phim/blob/master/screenshots/2.png?raw=true" alt="" style="height: auto; width: 100%;">
 
-<img src="" alt="" style="height: auto; width: 100%;">
+<img src="https://github.com/DangCaoHau2004/web-ban-ve-xem-phim/blob/master/screenshots/3.png?raw=true" alt="" style="height: auto; width: 100%;">
 
-<img src="" alt="" style="height: auto; width: 100%;">
+<img src="https://github.com/DangCaoHau2004/web-ban-ve-xem-phim/blob/master/screenshots/1.png?raw=true" alt="" style="height: auto; width: 100%;">
 
-<img src="" alt="" style="height: auto; width: 100%;">
+<img src="https://github.com/DangCaoHau2004/web-ban-ve-xem-phim/blob/master/screenshots/4.png?raw=true" alt="" style="height: auto; width: 100%;">
 
 
 
